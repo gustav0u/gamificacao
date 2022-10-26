@@ -33,12 +33,14 @@ function maisUm() {
     var fieldset = document.createElement("fieldset");
     fieldset.setAttribute("id", count);
     fieldset.setAttribute("dragabble", true);
+    var SEPARADOR = document.createElement("hr");
+    fieldset.appendChild(SEPARADOR);
     
     var PGT = document.createElement("input");
     PGT.setAttribute("type", "text");
     PGT.setAttribute("name", "pgt"+count+"[pergunta]");
     PGT.setAttribute("id", "pgt"+count+"[pergunta]");
-    PGT.setAttribute("placeholder", "Pergunta "+(parseInt(count)+1));
+    PGT.setAttribute("value", "Pergunta "+(parseInt(count)+1));
 
     var HIDDEN = document.createElement("input");
     HIDDEN.setAttribute("type", "hidden");
@@ -238,8 +240,7 @@ function maisUm() {
     }
     fieldset.appendChild(SCLMAX);
 
-    var SEPARADOR = document.createElement("hr");
-    fieldset.appendChild(SEPARADOR);
+    
     
 
     document.getElementById("form").appendChild(fieldset);
