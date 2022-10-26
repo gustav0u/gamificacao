@@ -309,11 +309,11 @@ function tipoPGT(local) {
         scale(false, local);
     }else if(tipo == "scale"){
         input(false, local);
-        scale(true, local);
         textarea(false, local);
         ckb(false, local);
         radio(false, local);
         slc(false, local);
+        scale(true, local);
     }
 }
 function deletar(local, opcao) {
@@ -353,6 +353,7 @@ function input(op, local){
     }else{
         esconder = document.getElementById("pgt"+local+"input");
         esconder.style = "display:none;";
+        esconder.setAttribute("disabled", "true")
     }
 }
 function textarea(op, local){
@@ -475,10 +476,10 @@ function scale(op, local){
     if (op) {
         mostrar = document.getElementsByClassName("scale"+local+"min")[0];
         mostrar.style = "display:inline;";
-        esconder.removeAttribute("disabled");
+        mostrar.removeAttribute("disabled");
         mostrar = document.getElementsByClassName("scale"+local+"max")[0];
         mostrar.style = "display:inline;";
-        esconder.removeAttribute("disabled");
+        mostrar.removeAttribute("disabled");
     }else{
         esconder = document.getElementsByClassName("scale"+local+"min")[0];
         esconder.style = "display:none;";
