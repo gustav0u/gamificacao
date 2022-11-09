@@ -2,7 +2,6 @@
     $arquivo = file_get_contents('salvar.json');
     $vet = json_decode($arquivo);
     montaForm($vet);
-    var_dump($vet);
     function montaForm($perguntas){
         foreach ($perguntas as $value) {
             foreach ($value as $key1 => $value1) {
@@ -57,7 +56,6 @@
                     echo "<form method='post' enctype='multipart/form-data'>";
                     echo $value->pergunta."<br>";
                     echo "<input type='file' name='oi' id='oi'>";
-                    echo "<input type='submit'>";
                     echo "</form>";
                     echo "</fieldset>";
                 }elseif ($value1 == "scale") {
@@ -71,6 +69,7 @@
             }
         }
         }
+        echo "<input type='submit'>";
             
     }
     ?>

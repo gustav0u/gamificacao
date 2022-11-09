@@ -17,6 +17,7 @@
             <div class="col-2"></div>
         </div>
         
+
         <div class="row"> 
             <div class="col-2"></div>
             <div class="col-8"><div id="form"></div></div>
@@ -32,7 +33,7 @@
     </form>
     <div class="col col-2"></div>
     </div>
-</div>
-<script src="js/funcoes.js"></script>
+</div> -->
+<script src="js/funcao.js"></script>
 </body>
 </html>
