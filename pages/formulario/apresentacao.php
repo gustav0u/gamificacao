@@ -1,4 +1,6 @@
 <?php
+    $title = "Apresentação Formulário";
+    include "../header.php";
     $arquivo = file_get_contents('salvar.json');
     $vet = json_decode($arquivo);
     montaForm($vet);
@@ -72,4 +74,6 @@
         echo "<input type='submit'>";
             
     }
+    $script = "../../assets/js/funcao.js";
+    include "../footer.php"; 
     ?>
