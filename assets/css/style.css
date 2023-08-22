@@ -8,3 +8,84 @@
     border-color: #4010a1;
     color:#f0f8ff;
 }
+#preloader {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#7a4dd2; /* cor do background que vai ocupar o body */
+    z-index:999; /* z-index para jogar para frente e sobrepor tudo */
+}
+#preloader .inner {
+    position: absolute;
+    top: 50%; /* centralizar a parte interna do preload (onde fica a animação)*/
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+.c-loader {
+  animation: is-rotating 1s infinite;
+  border: 6px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color: #4010a1;
+  height: 50px;
+  width: 50px;
+}
+@keyframes is-rotating {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  .bemvindo{
+    position: relative;
+float: right;
+margin-top: 50px;
+width: 88%;
+height: 400px;
+  }
+  .margem{
+    background-color: #B8B8B8;
+  }
+  body{
+    font-family: 'Inika', serif !important;
+  }
+  .urbanist{
+    font-family: 'Urbanist', sans-serif !important;
+  }
+  .efeito-vidro {
+    background: rgba(163, 163, 163, 0.35);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    line-height: 150%;
+    position: absolute;
+    bottom: 100px;
+  }
+  .container{
+    text-align: justify;
+    align-content: center;
+  }
+  /* Estilo personalizado para o botão roxo */
+.custom-btn-purple {
+    background-color: #9972f5;
+    border-color: #a75fd1;
+}
+.custom-btn-purple:hover {
+    background-color: #7239a8;
+    border-color: #7239a8;
+}
+
+/* Estilo para o cabeçalho roxo */
+.bg-purple {
+    background-color: #7239a8;
+}
+
+/* Efeito de desfoque (blur) */
+.glass-effect {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
