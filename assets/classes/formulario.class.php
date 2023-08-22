@@ -1,5 +1,6 @@
 <?php
 require_once ('../classes/database.class.php');
+require_once('../classes/pergunta.class.php');
     
 class Formulario{
     
@@ -8,13 +9,15 @@ class Formulario{
     private $titulo;
     private $usuario;
     private $descricao;
+    private $perguntas;
     
     //construtor do objeto
-    public function __construct($id, $titulo, $usu, $desc){
+    public function __construct($id, $titulo, $usu, $desc, $perguntas){
         $this->setId($id);
         $this->setTitulo($titulo);
         $this->setUsuario($usu);
         $this->setDescricao($desc);
+        $this->setPerguntas($perguntas);
     }
     
     //Início dos Setters
@@ -33,6 +36,10 @@ class Formulario{
     public function setDescricao($desc){
         $this->descricao = $desc;
     }
+
+    public function setPerguntas($perguntas){
+        $this->perguntas = Pergunta::listar(2, $this->id);
+    }
     //Fim dos Setters
 
     //Início dos Getters
@@ -50,6 +57,10 @@ class Formulario{
 
     public function getDescricao(){
         return $this->desc;
+    }
+
+    public function getPerguntas(){
+        return $this->perguntas;
     }
 
     //Fim dos Getters

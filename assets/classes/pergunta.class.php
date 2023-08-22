@@ -1,5 +1,6 @@
 <?php
 require_once ('../classes/database.class.php');
+require_once ('../classes/alternativa.class.php');
     
 class Pergunta{
     
@@ -7,12 +8,16 @@ class Pergunta{
     private $id;
     private $tipo;
     private $questao;
+    private $formulario;
+    private $alternativas[];
     
     //construtor do objeto
-    public function __construct($id, $tipo, $questao){
+    public function __construct($id, $tipo, $questao, $alternativas, $formulario){
         $this->setId($id);
         $this->setTipo($tipo);
         $this->setQuestao($questao);
+        $this->setFormulario($formulario);
+        $this->setAlternativas($alternativas);
     }
     
     //Início dos Setters
@@ -24,9 +29,18 @@ class Pergunta{
         $this->tipo = $tipo;
     }
 
-    public function setQuestao($tipo){
-        $this->tipo = $tipo;
+    public function setQuestao($questao){
+        $this->questao = $questao;
     }
+
+    public function setFormulario($formulario){
+        $this->formulario = $formulario;
+    }
+
+    public function setAlternativas($alternativas){
+        $this->alternativas = Alternativa::listar(2, $this->id);
+    }
+
 
     //Fim dos Setters
 
@@ -43,31 +57,41 @@ class Pergunta{
         return $this->questao;
     }
 
+    public function getFormulario(){
+        return $this->formulario;
+    }
+
+    public function getAlternativas(){
+        return $this->alternativas;
+    }
+
 
     //Fim dos Getters
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO atividade (tipo, questao)
-                      VALUES (:tipo, :questao)';
+        $sql = 'INSERT INTO pergunta (tipo, questao, formulario_idformulario)
+                      VALUES (:tipo, :questao, :formulario)';
         $params = array(':tipo' => $this->getTipo(),
-                        ':questao' => $this->getQuestao()
+                        ':questao' => $this->getQuestao(),
+                        ':formulario' => $this->getFormulario()
                     );
         return Database::executar($sql, $params);
     }
 
     public function excluir(){
-        $sql = 'DELETE FROM atividade 
-                WHERE idatividade = :id';         
+        $sql = 'DELETE FROM pergunta 
+                WHERE idpergunta = :id';         
         $params = array(':id'=>$this->getId());         
         return Database::executar($sql, $params);
     }
 
     public function editar(){
-        $sql = 'UPDATE atividade
+        $sql = 'UPDATE pergunta
                 SET tipo = :tipo,
-                questao = :questao
-                WHERE   idatividade = :id';
+                questao = :questao,
+                formulario_idformulario = :formulario,
+                WHERE   idpergunta = :id';
         
         $params = array(':tipo' => $this->getTipo(),
                         ':questao' => $this->getQuestao()
@@ -77,16 +101,21 @@ class Pergunta{
      
 
     public function listar($tipo = 0, $info = ''){
-        $sql = 'SELECT * FROM atividade';
+        $sql = 'SELECT * FROM pergunta';
         switch($tipo){
-            case 1: $sql .= ' WHERE idatividade = :info'; break;
-            case 3: $sql .= ' WHERE tipo like :info';  break;
+            case 1: $sql .= ' WHERE idpergunta = :info'; break;
+            case 2: $sql .= ' WHERE formulario_idformulario = :info'; break;
         }          
         $params = array();
         if ($tipo > 0)
             $params = array(':info'=>$info);         
         return Database::listar($sql, $params);
     }
+
+    public function addAlternativa($tipo){
+        $this->tipo = $tipo;
+    }
+
 }
 
 ?>

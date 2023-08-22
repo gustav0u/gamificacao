@@ -24,8 +24,8 @@ class Atividade{
         $this->tipo = $tipo;
     }
 
-    public function setValor($tipo){
-        $this->tipo = $tipo;
+    public function setValor($valor){
+        $this->valor = $valor;
     }
 
     //Fim dos Setters
