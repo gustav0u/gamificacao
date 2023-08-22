@@ -91,7 +91,7 @@ class Isignia{
         $sql = 'SELECT * FROM isignia';
         switch($tipo){
             case 1: $sql .= ' WHERE idusuario = :info'; break;
-            case 3: $sql .= ' WHERE tipo like :info';  break;
+            case 2: $sql .= ' WHERE tipo like :info';  break;
         }          
         $params = array();
         if ($tipo > 0)

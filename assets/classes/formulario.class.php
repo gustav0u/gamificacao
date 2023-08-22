@@ -9,7 +9,7 @@ class Formulario{
     private $titulo;
     private $usuario;
     private $descricao;
-    private $perguntas;
+    private $perguntas[];
     
     //construtor do objeto
     public function __construct($id, $titulo, $usu, $desc, $perguntas){

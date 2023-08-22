@@ -75,15 +75,15 @@ class Alternativa{
     }
      
 
-    public function listar($texto = 0, $info = ''){
+    public function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM alternativa';
-        switch($texto){
+        switch($tipo){
             case 1: $sql .= ' WHERE idalternativa = :info'; break;
             case 2: $sql .= ' WHERE pergunta_idpergunta like :info';  break;
             case 3: $sql .= ' WHERE texto like :info';  break;
         }          
         $params = array();
-        if ($texto > 0)
+        if ($tipo > 0)
             $params = array(':info'=>$info);         
         return Database::listar($sql, $params);
     }

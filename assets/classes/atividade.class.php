@@ -80,7 +80,7 @@ class Atividade{
         $sql = 'SELECT * FROM atividade';
         switch($tipo){
             case 1: $sql .= ' WHERE idatividade = :info'; break;
-            case 3: $sql .= ' WHERE tipo like :info';  break;
+            case 2: $sql .= ' WHERE tipo like :info';  break;
         }          
         $params = array();
         if ($tipo > 0)
