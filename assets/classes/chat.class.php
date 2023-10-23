@@ -1,5 +1,5 @@
 <?php
-require_once ('../classes/database.class.php');
+require_once ('database.class.php');
     
 class Chat{
     

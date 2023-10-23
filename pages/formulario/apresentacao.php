@@ -5,36 +5,38 @@
     $vet = json_decode($arquivo);
     montaForm($vet);
     function montaForm($perguntas){
+        echo "<h1>".$perguntas->nomeform."</h1>";
         foreach ($perguntas as $value) {
+            /* var_dump($value); */
             foreach ($value as $key1 => $value1) {
-                // var_dump($value);
-                //echo $value["pergunta"];
+                /* var_dump($value);
+                echo "<hr>"; */
             if ($key1 == 'tipoP') {
                 if ($value1 == 'rCurta') {
                 
                     echo "<fieldset>";
                     echo $value->pergunta."<br>";
                     echo "<input type='text' name='$value->pergunta' id='$value->pergunta   '>";
-                    echo "</fieldset>";
+                    echo "</fieldset><hr>";
                 }elseif ($value1 == 'rLonga') {
                     echo "<fieldset>";
                     echo $value->pergunta."<br>";
                     echo "<textarea name='$value->pergunta' id='$value->pergunta' cols='30' rows='10'></textarea>";
-                    echo "</fieldset>";
+                    echo "</fieldset><hr>";
                 }elseif ($value1 == "multEsc") {
                     echo "<fieldset>";
                     echo $value->pergunta."<br>";
                     foreach ($value->options as $key => $value2) {
                         echo "<input type='checkbox' name='$value->pergunta.ckb[]' id='$value->pergunta.ckb[]' value='$value2'>$value2<br>";
                     }
-                    echo "</fieldset>";
+                    echo "</fieldset><hr>";
                 }elseif ($value1 == "uniEsc") {
                     echo "<fieldset>";
                     echo $value->pergunta."<br>";
                     foreach ($value->options as $key => $value2) {
                         echo "<input type='radio' name='".$value->pergunta."' id='".$value->pergunta."' value='$value2'>$value2<br>";
                     }
-                    echo "</fieldset>";
+                    echo "</fieldset><hr>";
                 }elseif ($value1 == "slc") {
                     echo "<fieldset>";
                     echo $value->pergunta."<br>";

@@ -1,5 +1,5 @@
 <?php
-require_once ('../classes/database.class.php');
+require_once ('database.class.php');
     
 class Usuario{
     
@@ -100,7 +100,7 @@ class Usuario{
         $params = array(':nome' => $this->getNome(),
                         ':usuario '=> $this->getUsuario(),
                         ':dtNasc' => $this->getDataNasc(),
-                        ':email' => $this->getEmail();
+                        ':email' => $this->getEmail(),
                         ':senha' => $this->getSenha(),
                         ':numSorte' => $this->getNumSorte(),
                         ':cor' => $this->getCor()
@@ -129,7 +129,7 @@ class Usuario{
         $params = array(':nome' => $this->getNome(),
                         ':usuario '=> $this->getUsuario(),
                         ':dtNasc' => $this->getDataNasc(),
-                        ':email' => $this->getEmail();
+                        ':email' => $this->getEmail(),
                         ':senha' => $this->getSenha(),
                         ':numSorte' => $this->getNumSorte(),
                         ':cor' => $this->getCor()

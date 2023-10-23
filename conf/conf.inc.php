@@ -9,10 +9,9 @@
     define('CHARSET', 'utf8');
 
     // URL Base - Usado para o Menu, links, ...
-    define('URL_BASE', 'http://localhost/crud-padrao/');
+    define('URL_BASE', 'http://localhost/gamificacao/');
     
     // Configuração da Aplicação (dev ou prod)
     // dev mostra os erros e prod não mostra os erros
     define('PERFIL', 'dev');
-    
 ?>

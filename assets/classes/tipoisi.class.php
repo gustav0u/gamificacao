@@ -1,6 +1,6 @@
 <?php
-require_once ('../classes/database.class.php');
-require_once ('../classes/tipo.class.php');
+require_once ('database.class.php');
+require_once ('tipo.class.php');
     
 class TipoIsi extends Tipo{
 

@@ -1,1 +1,1 @@
-{"pgt0":{"pergunta":"Pergunta 1","tipoP":"rCurta","options":{"min":"0","max":"2"}},"pgt1":{"pergunta":"Pergunta 2","tipoP":"rCurta","options":{"min":"0","max":"2"}},"pgt2":{"pergunta":"Pergunta 3","tipoP":"rCurta","options":{"min":"0","max":"2"}}}
+{"nomeform":"Formul\u00e1rio 1","pgt0":{"pergunta":"Marcela \u00e9 linda?","tipoP":"rLonga"},"pgt1":{"pergunta":"Marcela \u00e9 professora?","tipoP":"uniEsc","options":["Sim","N\u00e3o"]}}

@@ -1,6 +1,6 @@
 <?php
-require_once ('../classes/database.class.php');
-require_once ('../classes/alternativa.class.php');
+require_once ('database.class.php');
+require_once ('alternativa.class.php');
     
 class Pergunta{
     
@@ -9,7 +9,7 @@ class Pergunta{
     private $tipo;
     private $questao;
     private $formulario;
-    private $alternativas[];
+    private $alternativas;
     
     //construtor do objeto
     public function __construct($id, $tipo, $questao, $alternativas, $formulario){
