@@ -89,3 +89,25 @@ height: 400px;
     padding: 20px;
     border-radius: 10px;
 }
+.space{
+  height: 50px;
+}
+.link{
+  cursor: pointer;
+}
+.purple{
+  color: indigo;
+}
+.table-purple {
+  --bs-table-color: #000;
+  --bs-table-bg: #caa1e1;
+  --bs-table-border-color: #a070a1;
+  --bs-table-striped-bg: #e5c5f2;
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: #debae6;
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: #e6bfec;
+  --bs-table-hover-color: #000;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}

@@ -2,7 +2,7 @@
 
     // Configuração do Banco de Dados
     define('HOST', 'localhost');  
-    define('DBNAME', '2info');    
+    define('DBNAME', 'gamificacao');    
     define('USER', 'root');  
     define('PASSWORD', '');
     define('DRIVER', 'mysql'); 

@@ -108,6 +108,24 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `idexterno`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `idexterno` (
+  `id` INT NOT NULL,
+  `site` VARCHAR(100) NULL,
+  `nomesite` VARCHAR(45) NULL,
+  `usuario_idusuario` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_idexterno_usuario1`
+    FOREIGN KEY (`usuario_idusuario`)
+    REFERENCES `usuario` (`idusuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
 -- Table `formulario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `formulario` ;
