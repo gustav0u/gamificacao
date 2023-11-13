@@ -98,6 +98,9 @@ height: 400px;
 .purple{
   color: indigo;
 }
+.margin_bottom{
+  margin-bottom: 1em;
+}
 .table-purple {
   --bs-table-color: #000;
   --bs-table-bg: #caa1e1;

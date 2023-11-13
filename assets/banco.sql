@@ -341,7 +341,7 @@ DROP TABLE IF EXISTS `usuario` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `idusuario` INT NOT NULL,
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL,
   `usuario` VARCHAR(45) NOT NULL,
   `dtNasc` DATE NULL,
