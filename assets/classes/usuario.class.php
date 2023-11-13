@@ -1,5 +1,5 @@
 <?php
-require_once ('../classes/database.class.php');
+require_once ('database.class.php');
     
 class Usuario{
     
@@ -10,18 +10,16 @@ class Usuario{
     private $dtNasc;
     private $email;
     private $senha;
-    private $numSorte;
     private $cor;
     
     //construtor do objeto
-    public function __construct($id, $nome, $usu, $dt, $email, $pass, $num, $cor){
+    public function __construct($id, $nome, $usu, $dt, $email, $pass, $cor){
         $this->setId($id);
         $this->setNome($nome);
         $this->setUsuario($usu);
         $this->setDataNasc($dt);
         $this->setEmail($email);
         $this->setSenha($pass);
-        $this->setNumSorte($num);
         $this->setCor($cor);
     }
     
@@ -47,11 +45,7 @@ class Usuario{
     }
 
     public function setSenha($pass){
-        $this->senha = $senha;
-    }
-
-    public function setNumSorte($num){
-        $this->numSorte = $num;
+        $this->senha = $pass;
     }
 
     public function setCor($cor){
@@ -84,10 +78,6 @@ class Usuario{
         return $this->senha;
     }
 
-    public function getNumSorte(){
-        return $this->numSorte;
-    }
-
     public function getCor(){
         return $this->cor;
     }
@@ -95,14 +85,13 @@ class Usuario{
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO usuario (nome, usuario, dtNasc, email, senha, numSorte, cor)
-                      VALUES (:nome, :usuario, :dtNasc, :email, :senha, :numSorte, :cor)';
+        $sql = 'INSERT INTO usuario (nome, usuario, dtNasc, email, senha, cor)
+                      VALUES (:nome, :usuario, :dtNasc, :email, :senha, :cor)';
         $params = array(':nome' => $this->getNome(),
                         ':usuario '=> $this->getUsuario(),
                         ':dtNasc' => $this->getDataNasc(),
-                        ':email' => $this->getEmail();
+                        ':email' => $this->getEmail(),
                         ':senha' => $this->getSenha(),
-                        ':numSorte' => $this->getNumSorte(),
                         ':cor' => $this->getCor()
                     );
         return Database::executar($sql, $params);
@@ -122,16 +111,14 @@ class Usuario{
                     dtNasc = :dtNasc,
                     email = :email,
                     senha = :senha,
-                    numSorte = :numSorte,
                     cor = :cor
                 WHERE   usuario = :id';
         
         $params = array(':nome' => $this->getNome(),
                         ':usuario '=> $this->getUsuario(),
                         ':dtNasc' => $this->getDataNasc(),
-                        ':email' => $this->getEmail();
+                        ':email' => $this->getEmail(),
                         ':senha' => $this->getSenha(),
-                        ':numSorte' => $this->getNumSorte(),
                         ':cor' => $this->getCor()
                     );
         return Database::executar($sql, $params);

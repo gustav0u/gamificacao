@@ -1,0 +1,69 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Study n'Play</title>
+        <link rel="stylesheet" href="../../assets/css/style.css">
+        <!-- Mantenha apenas os estilos necessários do Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            body {
+                color: #000; /* Adicione esta linha para definir a cor do texto para preto */
+            }
+
+            .purple-background {
+                background-color: rgba(177, 165, 193, 0.3);
+                padding: 15px;
+                border-radius: 10px;
+                margin-top: 4%;
+            }
+
+            .btn-purple {
+                background-color: #8e8896;
+                color: #fff;
+            }
+
+            /* Adicione esta regra para deixar a borda mais grossa */
+            .form-control {
+                border-width: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-2">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-purple">
+                            <h3 class="text-center">Cadastro</h3>
+                        </div>
+                        <div class="card-body glass-effect">
+                            <form action="cadastro.php" method="post">
+                                <div class="mb-2">
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome:" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nome de usuário:" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="date" class="form-control" id="dtNasc" name="dtNasc" placeholder="Data de nascimento:" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email:" required>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="color" class="form-control" id="cor" name="cor">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha:" required>
+                                </div>
+                                <button type="submit" class="btn btn-secondary w-100">Cadastrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>

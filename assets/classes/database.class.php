@@ -3,7 +3,7 @@
 class Database{
     public static function conectar(){
         try{
-            require_once('../config/config.inc.php');
+            require_once('../../conf/conf.inc.php');
             $conexao = new PDO(MYSQL_DSN,MYSQL_USUARIO,MYSQL_SENHA );
             return $conexao;
         }catch(PDOException $e){
