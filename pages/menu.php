@@ -1,7 +1,7 @@
 <?php
  include "header.php";
 ?>
-
+<title><?= $title ?></title>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="row w-100">
@@ -16,11 +16,11 @@
             
                 <form class="d-flex ms-3" action="consulta.php" method="GET"> <!-- Adiciona a classe ms-3 para margem à esquerda na barra de pesquisa -->
                     <input class="form-control me-2" type="search" placeholder="Buscar usuários" aria-label="Search" name="q">
-                    <button class="btn btn-outline-light" type="submit"><i class="bi bi-search text-white"></i></button>
+                    <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 
                 <div class="ms-3"> <!-- Adiciona a classe ms-3 para margem à esquerda no ícone de usuário -->
-                    <a href="perfil.php" class="text-white"> <!-- Remova a classe me-2 para margem à direita -->
+                    <a href="perfil.php" class="text-light"> <!-- Remova a classe me-2 para margem à direita -->
                         <div><img src="../assets/img/userr.webp" alt="" width="40px"></div>
                     </a>
                 </div>

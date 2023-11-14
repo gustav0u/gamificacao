@@ -1,9 +1,10 @@
 <?php 
-    
+    include "../conf/Conexao.php";
     include "header.php" ;
-    $usuario = "thiaguete";
+    session_start();
+    $usuario = $_SESSION["username"];
     $conexao = Conexao::getInstance();
-    $consulta = $conexao->query("SELECT *, DATE_FORMAT(`dtNasc`, '%d/%m/%Y') AS `dtNasc` FROM usuario WHERE usuario = 'thiaguete'");
+    $consulta = $conexao->query("SELECT *, DATE_FORMAT(`dtNasc`, '%d/%m/%Y') AS `dtNasc` FROM usuario WHERE usuario = '$usuario'");
     while($linha=$consulta->fetch(PDO::FETCH_ASSOC)){
         $title = "@{$linha["usuario"]} em Study N' Play";
         $usuario = $linha;
@@ -20,7 +21,11 @@
                     <div class="card-body">
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">
+                            <?php
+                                echo "{$usuario["nome"]} nasceu em {$usuario["dtNasc"]} na Cidade de Londrina, seu pai se chama Pedro e sua mãe Regina ";
+                            ?>
+                        </p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><i class="bi bi-cake"></i>  <?= $usuario["dtNasc"] ?></li>
@@ -32,10 +37,10 @@
                     <a href="#" class="card-link text-success">Mensagem  <i class="bi bi-chat-left-dots"></i></a>
                 </div>
             </div></div>
-            <div class="col-5">
+            <div class="col-6">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="purple">Isígnias:</h4>
+                        <h4 class="purple">Insígnias:</h4>
                         <br>
                         <h1>
                             <i width="1px"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" width="8%"></i>
@@ -84,7 +89,7 @@
             <div class="col-3">
                 <h4 class="purple">Pontos:</h4>
                 <br>
-                <ul class="list-group list-group-numbered">
+                <ul class="list-group list-group-numbered" width="100%">
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#exampleModal">BeeCrowd</div>
