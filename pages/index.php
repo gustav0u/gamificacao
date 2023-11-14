@@ -78,16 +78,81 @@
             </div>
         </div>
         
-        <!-- Botão flutuante -->
-        <div class="row justify-content-end fixed-bottom m-1">
-            <div class="col-1 mr-4"> <!-- Adicionei a classe 'mr-4' para adicionar uma margem à direita -->
-                <a href="#" class="margin_bottom btn btn-purple btn-circle btn-lg ">
-                    <i class="fas fa-plus">+</i>
-                </a>
-            </div>
+        <div class="container">
+    <!-- Botão flutuante -->
+    <div class="row justify-content-end fixed-bottom m-1">
+        <div class="col-1 mr-4"> <!-- Adicionei a classe 'mr-4' para adicionar uma margem à direita -->
+            <a href="#" class="margin_bottom btn btn-purple btn-circle btn-lg" id="openModal">
+                <i class="fas fa-plus">+</i>
+            </a>
         </div>
     </div>
+</div>
 
+<!-- Janela Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Criar turma?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="turma/criarturmabanco.php" method="post">
+                    <div class="row">
+                        <!-- Nome da Turma -->
+                        <div class="form-group col-md-12">
+                            <div class="row">
+                                <div class="col-10">
+                                    <label for="nome">Nome da Turma:</label>
+                                </div>
+                                <div class="col-2">
+                                    <label for="cor">Cor da Turma:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10">
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome da turma">
+                                </div>
+                                <div class="col-2">
+                                    <input type="color" class="form-control" id="cor" name="cor" value="#ff0000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Descricao -->
+                        <label for="descricao">Descricao:</label>
+                        <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descreva a função da turma">
+                    </div>
+                    <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-purple">Continuar</button>
+            </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $("#openModal").click(function(){
+            $("#myModal").modal();
+        });
+    });
+</script>
+
+</body>
+</html>
 
 
         <!-- Adicione a referência ao jQuery e ao Bootstrap JS se ainda não estiverem presentes -->
