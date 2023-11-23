@@ -1,3 +1,11 @@
+<?php
+    if (isset($_POST['nomUser'])) {
+        // Atribui o valor da variável 'nome_da_variavel' a uma nova variável
+        $minha_variavel = $_POST['nomUser'];
+    } else {
+        $minha_variavel = "";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +27,7 @@
                         <form action="login.php" method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Usuário:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <input type="text" class="form-control" id="username" name="username" value='<?php echo $minha_variavel; ?>' required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Senha:</label>

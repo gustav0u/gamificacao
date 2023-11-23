@@ -21,7 +21,7 @@
         </a>
         <div>
             <li>
-                <a class="navbar-brand "href="pages/login/login.html">Login</a>
+                <a class="navbar-brand "href="pages/login/login1.php">Login</a>
             </li>  
         </div>
         <div>
@@ -58,9 +58,9 @@
                 Considere se cadastrar!
             </div>
             <div class="col-7">
-                <form action="cadastro.php" method="post">
-                    <input type="text" name="email" id="email" placeholder="email">
-                    <button type="button" class="btn btn-dark">Entrar</button>
+                <form action="pages/login/login1.php" method="post">
+                    <input type="text" name="nomUser" id="nomUser" placeholder="Nome de usuário:">
+                    <button type="submit" class="btn btn-dark">Entrar</button>
                 </form>
                 </div>
                </div>

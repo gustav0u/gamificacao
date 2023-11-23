@@ -1,4 +1,15 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtém os valores enviados pelo formulário
+    $senha = $_POST['senha'];
+    $confirmarSenha = $_POST['Csenha'];
+
+    // Verifica se as senhas são diferentes
+    if ($senha != $confirmarSenha) {
+        echo "As senhas não coincidem. Por favor, verifique e tente novamente.";
+        die;
+    } 
+}
 // Conexão com o banco de dados
 $dsn = 'mysql:host=localhost;dbname=gamificacao;charset=utf8';
 $username = 'root';
@@ -34,7 +45,7 @@ try {
     $stmt->bindParam(':senha', $senha);
     $stmt->execute();
 
-     header('Location: ../login/login.html');
+     header('Location: ../login/login1.php');
 } catch (PDOException $e) {
     die('Erro ao cadastrar no banco de dados: ' . $e->getMessage());
 }

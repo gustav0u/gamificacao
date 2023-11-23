@@ -41,6 +41,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h4 class="purple">Insígnias:</h4>
+            
                         <br>
                         <h1>
                             <i width="1px"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="" width="8%"></i>
@@ -48,6 +49,40 @@
                             <i width="1px"><img src="https://beecrowd.io/wp-content/uploads/2021/08/beecrowd__roxoHorClean-small-PNG-1.png" alt="" width="10%"></i>
                             <i class="bi bi-filetype-html text-danger"></i>
                             <i class="bi bi-filetype-java text-info"></i>
+                            <i>      <!-- Botão de insígnia -->
+  
+    <img src="../assets/img/addinsignia.png" width="20" alt=""  class="toggle-button" onclick="toggleCanvas()">
+  
+    <div class="off-canvas" id="myCanvas">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <br><br><br> 
+        <h3 class="">Inserir Insígnia:</h3>
+        <form action="insignia/upload.php" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
+          </div>
+          <button type="submit" class="btn btn-success">Enviar</button>
+          <!-- Botão para fechar o off-canvas -->
+          <button type="button" class="btn btn-purple" onclick="toggleCanvas()">Fechar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleCanvas() {
+    var canvas = document.getElementById("myCanvas");
+    if (canvas.style.left === "0px") {
+      canvas.style.left = "-250px";
+    } else {
+      canvas.style.left = "0px";
+    }
+  }
+</script>
+</i>
                         </h1>
                     </div>
                 </div>
