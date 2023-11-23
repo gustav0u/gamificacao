@@ -1,10 +1,9 @@
 <?php
-
+include URL_BASE.'/conf/Conexao.php';
 class Database{
     public static function conectar(){
         try{
-            require_once('../config/config.inc.php');
-            $conexao = new PDO(MYSQL_DSN,MYSQL_USUARIO,MYSQL_SENHA );
+            $conexao = Conexao::getInstance();
             return $conexao;
         }catch(PDOException $e){
             echo "Erro ao conectar com o banco de dados. Verifique os parâmetros de configuração.";

@@ -242,8 +242,10 @@ DROP TABLE IF EXISTS `sala` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `sala` (
-  `idsala` INT NOT NULL,
-  `nome` VARCHAR(45) NULL,
+  `idsala` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45),
+  `cor` VARCHAR(7),
+  `descricao` VARCHAR(100),
   PRIMARY KEY (`idsala`))
 ENGINE = InnoDB;
 

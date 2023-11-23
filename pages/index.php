@@ -9,75 +9,20 @@
     }
         $title = "Gerador de Formulário";
         include "menu.php";
+        include "../conf/Conexao.php";
     ?>
     <html lang="en">
     <body>
     <br>
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
+        <?php
+            include "../assets/classes/sala.class.php";
+            include "turma/turmas.php";
 
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
+        ?>
         </div>
-    <br>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-purple">Abrir turma</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         <div class="container">
     <!-- Botão flutuante -->
     <div class="row justify-content-end fixed-bottom m-1">

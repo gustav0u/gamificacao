@@ -1,6 +1,7 @@
 <?php
  include "header.php";
-?>
+ 
+?> 
 <title><?= $title ?></title>
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
