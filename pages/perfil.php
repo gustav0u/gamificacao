@@ -12,14 +12,17 @@
     include "menu.php";
 ?>
 
-    <div class="container">
-        <div class="space"></div>
-        <div class="row">
-            <div class="col-3">
-                <div class="card" style="width: 100%;">
-                <img src="<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>" class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">
-    
-     <!-- Modal do Bootstrap -->
+<div class="container">
+    <div class="space"></div>
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="width: 100%; position: relative;">
+                <img src="<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top tamanho" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">
+
+                <!-- Camada adicional para sobrepor a imagem -->
+                
+                <div style="position: absolute; top: 33%; left: 90%; width: 20px; height: 20px; background-image: url('../assets/img/userr.webp'); background-size: cover;" data-bs-toggle="modal" data-bs-target="#uploadModal"></div>
+       <!-- Modal do Bootstrap -->
      <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
