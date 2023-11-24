@@ -17,7 +17,30 @@
         <div class="row">
             <div class="col-3">
                 <div class="card" style="width: 100%;">
-                    <img src="../assets/img/perfpadrao.jpg" class="card-img-top" alt="Perfil Padrão">
+                <img src="<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>" class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">
+    
+     <!-- Modal do Bootstrap -->
+     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Escolher uma foto de perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                        <label for="fileInput" class="form-label">Escolher uma foto de perfil:</label>
+                        <input type="file" class="form-control" id="fileInput" name="fileInput" accept="image/*" required>
+                        <div class="modal-footer">
+                    <button type="input" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="input" class="btn btn-primary" onclick="uploadImage()">Salvar</button>
+                </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
                     <div class="card-body">
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
@@ -73,6 +96,15 @@
 </div>
 
 <script>
+    function openModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+}
   function toggleCanvas() {
     var canvas = document.getElementById("myCanvas");
     if (canvas.style.left === "0px") {

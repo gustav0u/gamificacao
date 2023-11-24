@@ -108,24 +108,6 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `idexterno`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `idexterno` (
-  `id` INT NOT NULL,
-  `site` VARCHAR(100) NULL,
-  `nomesite` VARCHAR(45) NULL,
-  `usuario_idusuario` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_idexterno_usuario1`
-    FOREIGN KEY (`usuario_idusuario`)
-    REFERENCES `usuario` (`idusuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
 -- Table `formulario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `formulario` ;
@@ -242,10 +224,10 @@ DROP TABLE IF EXISTS `sala` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `sala` (
-  `idsala` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45),
-  `cor` VARCHAR(7),
-  `descricao` VARCHAR(100),
+  `idsala` INT NOT NULL auto_increment,
+  `nome` VARCHAR(45) NULL,
+   `descricao` VARCHAR(45) NULL,
+    `cor` VARCHAR(6) NULL,
   PRIMARY KEY (`idsala`))
 ENGINE = InnoDB;
 
@@ -301,8 +283,8 @@ DROP TABLE IF EXISTS `tipoisi` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `tipoisi` (
-  `idtipoisi` INT NOT NULL,
-  `descricao` VARCHAR(45) NULL,
+  `idtipoisi` INT NOT NULL auto_increment,
+  `caminhoimg` VARCHAR(45) NULL,
   PRIMARY KEY (`idtipoisi`))
 ENGINE = InnoDB;
 
@@ -343,17 +325,17 @@ DROP TABLE IF EXISTS `usuario` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `idusuario` INT NOT NULL auto_increment,
   `nome` VARCHAR(100) NULL,
   `usuario` VARCHAR(45) NOT NULL,
   `dtNasc` DATE NULL,
   `email` VARCHAR(150) NULL,
   `senha` VARCHAR(100) NULL,
-  `numSorte` INT NULL,
   `cor` VARCHAR(7) NULL,
+  `imguser` VARCHAR(100) NULL,
   PRIMARY KEY (`idusuario`),
-  UNIQUE INDEX `idusuario_UNIQUE` (`idusuario` ASC) VISIBLE,
-  UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC) VISIBLE)
+  UNIQUE INDEX `idusuario_UNIQUE` (`idusuario` ASC) ,
+  UNIQUE INDEX `usuario_UNIQUE` (`usuario` ASC) )
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
