@@ -89,12 +89,12 @@ class Sala{
     }
      
 
-    static public function listar($tipo = 0, $info = ''){
+    static public function lista($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM sala';
         switch($tipo){
             case 1: $sql .= ' WHERE idsala = :info'; break;
             case 3: $sql .= ' WHERE nome like :info';  break;
-        }          
+        }     
         $params = array();
         if ($tipo > 0)
             $params = array(':info'=>$info);         

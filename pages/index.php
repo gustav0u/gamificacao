@@ -8,6 +8,7 @@
         exit();
     }
         $title = "Gerador de Formulário";
+        include "header.php";
         include "menu.php";
         include "../conf/Conexao.php";
     ?>

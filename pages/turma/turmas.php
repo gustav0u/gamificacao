@@ -1,9 +1,8 @@
 <?php
-
-    $salas = Sala::listar();
-    $sala = isset($_GET["t"]) ? $_GET["t"] : "";
+    $conexao = Conexao::getInstance();
+    $sql = $conexao->query("select * from sala;");
     $counter = 3;
-    while ($linha = $salas) {
+    while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
         if ($counter == 3) {
             echo '
                 </div>

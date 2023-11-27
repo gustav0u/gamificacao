@@ -1,6 +1,11 @@
 <?php
- include "header.php";
- 
+
+    $path = '../conf/conf.inc.php';
+    if (file_exists($path))
+        include_once($path);
+    $path = '../../conf/conf.inc.php';
+    if (file_exists($path))
+        include_once($path);
 ?> 
 <title><?= $title ?></title>
 <nav class="navbar navbar-dark bg-dark">
@@ -8,7 +13,7 @@
         <div class="row w-100">
             <div class="col-auto">
                 <a class="navbar-brand" href="index.php">
-                    <img src="../assets/img/loguin.png" alt="Logo" height="64" class="d-inline-block align-text-top">
+                    <img src="<?=URL_BASE."assets/img/loguin.png"?>" alt="Logo" height="64" class="d-inline-block align-text-middle">
                     Study n' Play
                 </a>
             </div>

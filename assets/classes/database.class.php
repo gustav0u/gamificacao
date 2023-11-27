@@ -1,5 +1,10 @@
 <?php
-include URL_BASE.'/conf/Conexao.php';
+$path = '../conf/conf.inc.php';
+if (file_exists($path))
+    include_once($path);
+$path = '../../conf/conf.inc.php';
+if (file_exists($path))
+    include_once($path);
 class Database{
     public static function conectar(){
         try{
@@ -20,7 +25,7 @@ class Database{
         $conexao = self::conectar();
         $comando = self::preparar($conexao, $sql, $params);
         if ($comando->execute())
-            return $comando->fetchAll();
+            return $comando->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function preparar($conexao, $sql, $params = array()){
