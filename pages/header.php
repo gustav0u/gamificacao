@@ -12,7 +12,14 @@
       margin: 0;
       font-family: Arial, sans-serif;
     }
-
+    .tamanho{
+    width: 215px;
+    height: 215px;
+}
+.tamanho2{
+    width: 40px;
+    height: 40px;
+}
     .off-canvas {
       position: fixed;
       top: 0;
@@ -27,12 +34,45 @@
     }
 
     .toggle-button {
-      position: fixed;
-      top: 170px;
-      left: 350px;
-      cursor: pointer;
-      z-index: 1;
-    }
+            position: absolute;
+            top: 33%; /* Ajuste a posição conforme necessário */
+            left: 30%; /* Ajuste a posição conforme necessário */
+            z-index: 999; /* Certifique-se de que o botão esteja acima de outros elementos */
+        }
+    /* Estilize o modal como desejado */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.foto-home{
+  border-radius: 50%;
+}
   </style>
+
+
 </head>
 <body id="body">

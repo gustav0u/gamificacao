@@ -27,7 +27,8 @@
                 
                 <div class="ms-3"> <!-- Adiciona a classe ms-3 para margem à esquerda no ícone de usuário -->
                     <a href="perfil.php" class="text-light"> <!-- Remova a classe me-2 para margem à direita -->
-                        <div><img src="../assets/img/userr.webp" alt="" width="40px"></div>
+                        <div>                <img src="<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>" class="foto-home tamanho2" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">
+</div>
                     </a>
                 </div>
             </div>
