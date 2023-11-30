@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row w-100">
             <div class="col-auto">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="<?=URL_BASE."pages/index.php"?>">
                     <img src="<?=URL_BASE."assets/img/loguin.png"?>" alt="Logo" height="64" class="d-inline-block align-text-middle">
                     Study n' Play
                 </a>
@@ -35,5 +35,3 @@
         </div>
     </div>
 </nav>
-</body>
-</html>

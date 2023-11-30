@@ -30,9 +30,12 @@ class Database{
 
     public static function preparar($conexao, $sql, $params = array()){
         $comando = $conexao->prepare($sql);
-        foreach($params as $chave=>$valor){
-            $comando->bindValue($chave,$valor);
+        if ($params != array()) {
+            foreach($params as $chave=>$valor){
+                $comando->bindValue($chave,$valor);
+            } 
         }
+        
         return $comando;
     }
 }

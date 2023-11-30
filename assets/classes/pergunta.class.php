@@ -9,7 +9,7 @@ class Pergunta{
     private $tipo;
     private $questao;
     private $formulario;
-    private $alternativas;
+    public $alternativas = [];
     
     //construtor do objeto
     public function __construct($id, $tipo, $questao, $alternativas, $formulario){
@@ -38,7 +38,7 @@ class Pergunta{
     }
 
     public function setAlternativas($alternativas){
-        $this->alternativas = Alternativa::listar(2, $this->id);
+        $this->alternativas = $alternativas;
     }
 
 
@@ -70,7 +70,7 @@ class Pergunta{
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO pergunta (tipo, questao, formulario_idformulario)
+        $sql = 'INSERT INTO pergunta (tipoper_idtipoper, questao, formulario_idformulario)
                       VALUES (:tipo, :questao, :formulario)';
         $params = array(':tipo' => $this->getTipo(),
                         ':questao' => $this->getQuestao(),
@@ -100,7 +100,7 @@ class Pergunta{
     }
      
 
-    public function listar($tipo = 0, $info = ''){
+    static public function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM pergunta';
         switch($tipo){
             case 1: $sql .= ' WHERE idpergunta = :info'; break;
@@ -112,8 +112,8 @@ class Pergunta{
         return Database::listar($sql, $params);
     }
 
-    public function addAlternativa($tipo){
-        $this->tipo = $tipo;
+    public function addAlternativa($alternativa){
+        $this->alternatias[] = $alternativa;
     }
 
 }

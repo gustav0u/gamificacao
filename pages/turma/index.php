@@ -1,27 +1,118 @@
 <?php
-    include "../header.php";
-    include "../menu.php";
     include "../../conf/Conexao.php";
     include "../../assets/classes/sala.class.php";
+    session_start();
+    $u = $_SESSION['userId'];
     $turma = isset($_GET["t"]) ? $_GET["t"] : 0;
     $sala = Sala::lista(1, $turma);
+    $title = "#".$sala["idsala"]." Sala: ".$sala["nome"];
+    $hexa = $sala["cor"];
+    $r = hexdec(substr($hexa,1,2)); // Se for sem o #, mude para 0, 2
+    $g = hexdec(substr($hexa,3,2)); // Se for sem o #, mude para 3, 2
+    $b = hexdec(substr($hexa,5,2)); // Se for sem o #, mude para 5, 2
+    $luminosidade = ( $r * 299 + $g * 587 + $b * 114) / 1000;
+    if( $luminosidade > 128 ) {
+        $fonte = "black";
+        $r -= 100;
+        $b -= 100;
+        $g -= 100;
+        $font = "rgb($r, $g, $b)";
+        $bg = $sala["cor"];
+    }else {
+        $fonte = "white";
+        $font = $sala["cor"];
+        $bg = "rgb($r, $g, $b)";
+    }
+    include "../header.php";
+    include "../menu.php";
 ?>
+    <br>
     <div class="container">
+        <div class="row">
+            <div class="col-12" >
+                <div class="card" style="background-color:<?=$sala["cor"]?>;">
+                    <div class="card-body">
+                        <h4 class="card-title" style="color:<?=$fonte?>"><?=$sala["nome"]?></h4>
+                        <p class="card-text" style="color:<?=$fonte?>"><?=$sala["descricao"]?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
         <div class="row justify-content-between text-between">
             <div class="col-12">
             <ul class="nav nav-pills nav-justified">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Atividades</a>
+                    <a class="nav-link" style="color: <?=$font?>;" href="atividade.php?t=<?=$turma?>">Atividades</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" style="background-color:<?php echo $sala["cor"]?>;" href="#">Postagens</a>
+                    <a class="nav-link active" aria-current="page" style="background-color:<?=$font?>; color: <?=$fonte?>;" href="#">Postagens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Participantes</a>
+                    <a class="nav-link" style="color: <?=$font?>;" href="participantes.php?t=<?=$turma?>">Participantes</a>
                 </li>
             </ul>
             </div>
         </div>
+        <br>
+        <div class="row justify-content-center text-start">
+            <div class="col-10" >
+                <div class="card" style="border: 2px solid <?=$font?>; background-color: <?=$bg?>;">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img rounded-circle" src="<?=URL_BASE."assets/img/userr.webp"?>" alt="" width="100%">
+                                </div>
+                                <div class="col-11">
+                                <div class="form-floating">
+                                    <form action="acao.php" method="post">
+                                        <div class="input-group mb-3">
+                                            <input type="hidden" name="turma" value="<?=$turma?>">
+                                            <textarea class="form-control" style="max-height: 200px; overflow:scroll" placeholder="Seu comentário aqui" name="texto" required></textarea>
+                                            <button type="button" class="btn btn-success"><i class="bi bi-recycle"></i></button>
+                                            <button type="submit" name="acao" value="post" class="btn btn-secondary">Postar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div id="post"></div>
+        <script type="text/javascript">
+            function ajax(){
+                var req = new XMLHttpRequest(); req.onreadystatechange = function(){
+                if (req.readyState == 4 && req.status == 200) {
+                    document.getElementById('post').innerHTML = req.responseText; }
+                }
+                var urlAtual = window.location.href;
+                var urlClass = new URL(urlAtual);
+                var sala = urlClass.searchParams.get("t");
+                console.log(sala);
+                req.open('GET', 'postloader.php?t='+sala, true); 
+                req.send();
+            }
+            ajax();
+
+            function loadComment(local, post, fonte){
+                req = new XMLHttpRequest(); 
+                req.onreadystatechange = function(){
+                if (req.readyState == 4 && req.status == 200) {
+                    document.getElementById('comentarios'+local).innerHTML = req.responseText; 
+                }
+                }
+                var urlAtual = window.location.href;
+                var urlClass = new URL(urlAtual);
+                console.log(local);
+                req.open('POST', 'commentloader.php?post='+post+'&fonte='+fonte, true); 
+                req.send(); 
+            }
+        </script>
     </div>
 <?php
     include "../footer.php";

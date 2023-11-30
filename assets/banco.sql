@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `alternativa` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `alternativa` (
-  `idalternativa` INT NOT NULL,
+  `idalternativa` INT NOT NULL auto_increment,
   `pergunta_idpergunta` INT NOT NULL,
   `texto` VARCHAR(100) NULL,
   PRIMARY KEY (`idalternativa`))
@@ -98,7 +98,7 @@ DROP TABLE IF EXISTS `comentario` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `comentario` (
-  `idcomentario` INT NOT NULL,
+  `idcomentario` INT NOT NULL auto_increment,
   `postagem_idpostagem` INT NOT NULL,
   `usuario_idusuario` INT NOT NULL,
   `comentario` VARCHAR(240) NULL,
@@ -114,7 +114,7 @@ DROP TABLE IF EXISTS `formulario` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `formulario` (
-  `idformulario` INT NOT NULL,
+  `idformulario` INT NOT NULL auto_increment,
   `usuario_idusuario` INT NOT NULL,
   `titulo` VARCHAR(45) NULL,
   `descricao` VARCHAR(150) NULL,
@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `pergunta` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `pergunta` (
-  `idpergunta` INT NOT NULL,
+  `idpergunta` INT NOT NULL auto_increment,
   `formulario_idformulario` INT NOT NULL,
   `questao` VARCHAR(250) NULL,
   `tipoper_idtipoper` INT NOT NULL,
@@ -195,9 +195,10 @@ DROP TABLE IF EXISTS `postagem` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `postagem` (
-  `idpostagem` INT NOT NULL,
+  `idpostagem` INT NOT NULL auto_increment,
   `usuario_idusuario` INT NOT NULL,
-  `formulario_idformulario` INT NOT NULL,
+  `texto` varchar(280),
+  `data` DATETIME NOT NULL,
   PRIMARY KEY (`idpostagem`))
 ENGINE = InnoDB;
 

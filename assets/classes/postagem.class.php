@@ -5,14 +5,17 @@ class Postagem{
     
     //Atributos da classe
     private $id;
-    private $formulario;
+    private $texto;
     private $usuario;
+    private $data;
     
     //construtor do objeto
-    public function __construct($id, $formulario, $usu){
+    public function __construct($id, $texto, $usu, $data){
         $this->setId($id);
-        $this->setFormulario($formulario);
+        $this->setTexto($texto);
         $this->setUsuario($usu);
+        $this->setData($data);
+
     }
     
     //Início dos Setters
@@ -20,12 +23,16 @@ class Postagem{
         $this->id = $id;
     }
 
-    public function setFormulario($formulario){
-        $this->formulario = $formulario;
+    public function setTexto($texto){
+        $this->texto = $texto;
     }
 
     public function setUsuario($usu){
         $this->usuario = $usu;
+    }
+
+    public function setData($data){
+        $this->data = $data;
     }
     //Fim dos Setters
 
@@ -34,22 +41,27 @@ class Postagem{
         return $this->id;
     }
 
-    public function getFormulario(){
-        return $this->formulario;
+    public function getTexto(){
+        return $this->texto;
     }
 
     public function getUsuario(){
         return $this->usuario;
     }
 
+    public function getData(){
+        return $this->data;
+    }
+
     //Fim dos Getters
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO postagem (formulario, usuario)
-                      VALUES (:formulario, :usuario)';
-        $params = array(':formulario' => $this->getFormulario(),
-                        ':usuario '=> $this->getUsuario(),
+        $sql = 'INSERT INTO postagem (usuario_idusuario, texto, `data`)
+                      VALUES (:usuario, :texto, :data)';
+        $params = array(':usuario' => $this->getUsuario(),
+                        ':texto' => $this->getTexto(),
+                        ':data' => $this->getData()
                     );
         return Database::executar($sql, $params);
     }
@@ -62,23 +74,22 @@ class Postagem{
     }
 
     public function editar(){
-        $sql = 'UPDATE formulario
-                SET formulario = :formulario,
+        $sql = 'UPDATE texto
+                SET texto = :texto,
                     usuario  = :usuario
                 WHERE   idpostagem = :id';
         
-        $params = array(':formulario' => $this->getFormulario(),
+        $params = array(':texto' => $this->getTexto(),
                         ':usuario '=> $this->getUsuario()
                     );
         return Database::executar($sql, $params);
     }
      
 
-    public function listar($tipo = 0, $info = ''){
-        $sql = 'SELECT * FROM formulario';
+    public static function listar($tipo = 0, $info = ''){
+        $sql = 'SELECT * FROM postagem';
         switch($tipo){
-            case 1: $sql .= ' WHERE idusuario = :info'; break;
-            case 2: $sql .= ' WHERE idformulario like :info';  break;
+            case 1: $sql .= ' WHERE usuario_idusuario = :info'; break;
             case 3: $sql .= ' WHERE idpostagem like :info';  break;
         }          
         $params = array();

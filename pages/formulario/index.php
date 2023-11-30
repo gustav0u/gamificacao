@@ -2,12 +2,13 @@
     $title = "Gerador de Formulário";
     include "../header.php";
 ?>
+<script src="../../assets/js/funcao.js"></script>
 <div class="container">
     <div class="row">
     <form method="post" action="acao.php" class="col col-12">
         <div class="row"> 
             <div class="col-2"></div>
-            <div class="col-8"><input type="text" placeholder="Nome do Formulário" class="form-control" id="nomeform"></div>
+            <div class="col-8"><input type="text" placeholder="Nome do Formulário" class="form-control" id="nomeform" name="nomeform"></div>
             <div class="col-2"></div>
         </div>
         

@@ -138,7 +138,7 @@ class Usuario{
     }
      
 
-    public function listar($tipo = 0, $info = ''){
+    public static function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM usuario';
         switch($tipo){
             case 1: $sql .= ' WHERE idusuario = :info'; break;

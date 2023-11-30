@@ -9,7 +9,7 @@ class Formulario{
     private $titulo;
     private $usuario;
     private $descricao;
-    private $perguntas;
+    private $perguntas = [];
     
     //construtor do objeto
     public function __construct($id, $titulo, $usu, $desc, $perguntas){
@@ -56,7 +56,7 @@ class Formulario{
     }
 
     public function getDescricao(){
-        return $this->desc;
+        return $this->descricao;
     }
 
     public function getPerguntas(){
@@ -67,14 +67,14 @@ class Formulario{
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO formulario (titulo, usuario, descricao)
+        $sql = 'INSERT INTO formulario(titulo, usuario_idusuario, descricao)
                       VALUES (:titulo, :usuario, :descricao)';
         $params = array(':titulo' => $this->getTitulo(),
                         ':usuario '=> $this->getUsuario(),
                         ':descricao' => $this->getDescricao()
                     );
-        Database::executar($sql, $params);
-            foreach ($this->perguntas as $pergunta) {
+        return Database::executar($sql, $params);
+            /* foreach ($this->perguntas as $pergunta) {
                 $p = new Pergunta(0, "", "", "", "", "");
                     $p->setTipo($pergunta["tipoP"]);
                     $p->setQuestao($pergunta["pergunta"]);
@@ -90,7 +90,7 @@ class Formulario{
                         $a->inserir();
                     }
                     
-            }
+            } */
     }
 
     public function excluir(){

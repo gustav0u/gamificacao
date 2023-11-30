@@ -75,7 +75,7 @@ class Alternativa{
     }
      
 
-    public function listar($tipo = 0, $info = ''){
+    static public function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM alternativa';
         switch($tipo){
             case 1: $sql .= ' WHERE idalternativa = :info'; break;

@@ -14,7 +14,7 @@ class Comentario{
         $this->setId($id);
         $this->setPostagem($postagem);
         $this->setUsuario($usu);
-        $this->setText($comentario);
+        $this->setComentario($comentario);
     }
     
     //Início dos Setters
@@ -56,11 +56,11 @@ class Comentario{
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO comentario (postagem, usuario, comentario)
+        $sql = 'INSERT INTO comentario (postagem_idpostagem, usuario_idusuario, comentario)
                       VALUES (:postagem, :usuario, :comentario)';
         $params = array(':postagem' => $this->getPostagem(),
-                        ':usuario '=> $this->getUsuario(),
-                        ':comentario '=> $this->getComentario(),
+                        ':usuario' => $this->getUsuario(),
+                        ':comentario' => $this->getComentario()
                     );
         return Database::executar($sql, $params);
     }
@@ -87,11 +87,11 @@ class Comentario{
     }
      
 
-    public function listar($tipo = 0, $info = ''){
+    public static function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM comentario';
         switch($tipo){
             case 1: $sql .= ' WHERE idusuario = :info'; break;
-            case 2: $sql .= ' WHERE idpostagem like :info';  break;
+            case 2: $sql .= ' WHERE postagem_idpostagem like :info';  break;
             case 3: $sql .= ' WHERE comentario like :info';  break;
         }          
         $params = array();

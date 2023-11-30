@@ -29,6 +29,7 @@ try {
 
     if ($user && password_verify($password, $user['senha'])) {
         // Salva o nome de usuário na sessão
+        $_SESSION['userId'] = $user["idusuario"];
         $_SESSION['username'] = $username;
 
         // Redireciona para a página principal

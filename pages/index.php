@@ -21,10 +21,11 @@
         <?php
             include "../assets/classes/sala.class.php";
             include "turma/turmas.php";
-
+            echo $_SESSION["userId"];
         ?>
         </div>
         <div class="container">
+        <div class="space"></div>
     <!-- Botão flutuante -->
     <div class="row justify-content-end fixed-bottom m-1">
         <div class="col-1 mr-4"> <!-- Adicionei a classe 'mr-4' para adicionar uma margem à direita -->
