@@ -115,11 +115,11 @@ class Formulario{
     }
      
 
-    public function listar($tipo = 0, $info = ''){
+    public static function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM formulario';
         switch($tipo){
-            case 1: $sql .= ' WHERE idusuario = :info'; break;
-            case 2: $sql .= ' WHERE descricao like :info';  break;
+            case 1: $sql .= ' WHERE usuario_idusuario = :info'; break;
+            case 2: $sql .= ' WHERE idformulario like :info';  break;
         }           
         $params = array();
         if ($tipo > 0)

@@ -3,6 +3,7 @@
     include_once "../../assets/classes/comentario.class.php";
     include_once "../../assets/classes/usuario.class.php";
     $fonte = isset($_GET["fonte"]) ? $_GET["fonte"] : "";
+    echo $fonte;
     $post = isset($_GET["post"]) ? $_GET["post"] : 0;
     $conexao = Conexao::getInstance();
     $sql = $conexao->query("select * from usuario, comentario where usuario.idusuario = comentario.usuario_idusuario and comentario.postagem_idpostagem = '$post'");

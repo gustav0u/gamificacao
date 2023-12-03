@@ -17,33 +17,7 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 100%; position: relative;">
-                <img src="<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top tamanho" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">
-
-                <!-- Camada adicional para sobrepor a imagem -->
-                
-                <div style="position: absolute; top: 33%; left: 90%; width: 20px; height: 20px; background-image: url('../assets/img/userr.webp'); background-size: cover;" data-bs-toggle="modal" data-bs-target="#uploadModal"></div>
-       <!-- Modal do Bootstrap -->
-     <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Escolher uma foto de perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <label for="fileInput" class="form-label">Escolher uma foto de perfil:</label>
-                        <input type="file" class="form-control" id="fileInput" name="fileInput" accept="image/*" required>
-                        <div class="modal-footer">
-                    <button type="input" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="input" class="btn btn-primary" onclick="uploadImage()">Salvar</button>
-                </div>
-                    </form>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+                <img src="<?=URL_BASE?>assets/imgusuarios/<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal" width="100%">       
                     <div class="card-body">
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
@@ -66,7 +40,7 @@
             <div class="col-6">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="purple">Insígnias:</h4>
+                        <h4 class="purple">Insígnias: <i role="button" class="bi bi-plus-circle " onclick="toggleCanvas()"></i></h4>
             
                         <br>
                         <h1>
@@ -84,7 +58,7 @@
     <div class="row">
       <div class="col-12">
         <br><br><br> 
-        <h3 class="">Inserir Insígnia:</h3>
+        <h3 class="">Inserir Insígnia: </h3>
         <form action="insignia/upload.php" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
@@ -98,25 +72,7 @@
   </div>
 </div>
 
-<script>
-    function openModal() {
-    var modal = document.getElementById('myModal');
-    modal.style.display = 'block';
-}
 
-function closeModal() {
-    var modal = document.getElementById('myModal');
-    modal.style.display = 'none';
-}
-  function toggleCanvas() {
-    var canvas = document.getElementById("myCanvas");
-    if (canvas.style.left === "0px") {
-      canvas.style.left = "-250px";
-    } else {
-      canvas.style.left = "0px";
-    }
-  }
-</script>
 </i>
                         </h1>
                     </div>
@@ -230,6 +186,100 @@ function closeModal() {
     </div>
   </div>
 </div>
+<!-- Modal do Bootstrap -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Escolher uma foto de perfil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="upload.php" method="post" enctype="multipart/form-data">
+                        <div id="liveAlertPlaceholder" class="col-12"></div>
+                        <label for="fileInput" class="form-label">Escolher uma foto de perfil:</label>
+                        <input type="file" class="form-control" id="fileInput" name="fileInput" accept="image/*" required>
+                        <div class="modal-footer">
+                    <button type="input" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button id="saveUserImg"type="input" class="btn btn-primary" disabled onclick="uploadImage()">Salvar</button>
+                </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+    function openModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+}
+  function toggleCanvas() {
+    var canvas = document.getElementById("myCanvas");
+    if (canvas.style.left === "0px") {
+      canvas.style.left = "-250px";
+    } else {
+      canvas.style.left = "0px";
+    }
+  }
+const input = document.getElementById('fileInput');
+const salvar = document.getElementById('saveUserImg')
+
+input.addEventListener('change', function() {
+  const file = this.files[0];
+  const img = new Image();
+
+  img.onload = function() {
+    const width = this.width;
+    const height = this.height;
+
+    if (width === height) {
+        salvar.removeAttribute("disabled");
+        var container = document.getElementById('liveAlertPlaceholder');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+            var image = document.createElement('img');
+            image.src = e.target.result;
+            container.innerHTML = "";
+            image.setAttribute("width", "100%")
+            container.appendChild(image);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    } else {
+        salvar.setAttribute("disabled", "true");
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+        alertPlaceholder.innerHTML = "";
+        const appendAlert = (message, type) => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('');
+
+        alertPlaceholder.append(wrapper);
+    }
+     appendAlert('<i class="bi bi-exclamation-triangle-fill"></i> Por Favor, selecione uma imagem quadrada', 'warning')
+    }
+  };
+
+  img.src = URL.createObjectURL(file);
+});
+
+
+</script>
 <?php 
     include "footer.php"
 ?>

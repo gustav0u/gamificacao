@@ -21,7 +21,7 @@
         <div class="row justify-content-between">
             
             <div class="col-2"></div>
-            <div class="col-8"><hr><button type="button" class="btn btn-purple" onclick="maisUm()">+</button><input type="submit" class="btn btn-purple" value="Gravar Questionário"></div>
+            <div class="col-8"><hr><button type="button" class="btn btn-purple" onclick="maisUm()">+</button><button type="submit" id="acao" name="acao" class="btn btn-purple" value="salvar">Gravar Questionário</button></div>
             <div class="col-2"></div>
         </div>
         

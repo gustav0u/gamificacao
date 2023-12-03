@@ -7,20 +7,45 @@ function geraInput(local, tipo){
     INPUT.setAttribute("id", "pgt"+local+"[options]["+COUNT+"]");
     INPUT.setAttribute("placeholder", "Resposta...");
     INPUT.setAttribute("class", "pgt"+local+tipo);
-    br(local, tipo);
     return INPUT;
 }
 function deleteButton(local, tipo) {
     var COUNT = document.getElementById("contador"+local).value;
     var BUTTON = document.createElement("button");
     BUTTON.setAttribute("type", "button");
-    BUTTON.setAttribute("placeholder", "Resposta...");
     BUTTON.setAttribute("id", "button"+local+"[options]["+COUNT+"]");
     BUTTON.setAttribute("class", "button"+local+tipo);
     BUTTON.textContent = "-";
     BUTTON.setAttribute("onclick", "deletar("+local+", "+COUNT+");");
     document.getElementById("contador"+local).value = parseInt(COUNT) + 1;
     return BUTTON;
+}
+function opcCerta(local, tipo) {
+    var COUNT = document.getElementById("contador"+local).value;
+    var CORRETA = document.createElement("input");
+    switch (tipo) {
+        case 1:
+            console.log("radio");
+            CORRETA.setAttribute("type", "radio");
+            CORRETA.setAttribute("class", "corretaradio"+local);
+        br(local, "radio");
+            break;
+        case 2:
+            CORRETA.setAttribute("type", "checkbox");
+            CORRETA.setAttribute("class", "corretackb"+local);
+            br(local, "ckb");
+            break; 
+        case 3:
+            CORRETA.setAttribute("type", "radio");
+            CORRETA.setAttribute("class", "corretaslc"+local);
+            br(local, "slc");
+            break;
+
+    }
+    CORRETA.setAttribute("id", "correta"+local+"[options]["+COUNT+"]");
+    CORRETA.setAttribute("name", "correta"+local+"["+COUNT+"]");
+    CORRETA.setAttribute("value", COUNT);
+    return CORRETA;
 }
 function br(local, tipo) {
     var COUNT = document.getElementById("contador"+local).value;
@@ -140,6 +165,15 @@ function maisUm() {
     RL.setAttribute("placeholder", "Resposta...");
     fieldset.appendChild(RL);
 
+    var CORRETACKB = document.createElement("input");
+    CORRETACKB.setAttribute("type", "checkbox");
+    CORRETACKB.setAttribute("id", "correta"+count+"[options]["+count+"]");
+    CORRETACKB.setAttribute("name", "correta"+count+"["+count+"]");
+    CORRETACKB.setAttribute("class", "corretackb"+count);
+    CORRETACKB.setAttribute("style", "display:none");
+    CORRETACKB.setAttribute("disabled", "true");
+    CORRETACKB.setAttribute("value", count);
+    fieldset.appendChild(CORRETACKB);
     var ME = document.createElement("input");
     ME.setAttribute("type", "text");
     ME.setAttribute("name", "pgt"+count+"[options][]");
@@ -161,10 +195,19 @@ function maisUm() {
     OPC.setAttribute("type", "button");
     OPC.textContent = "+";
     OPC.setAttribute("id", "buttonM"+count+"ckb");
-    OPC.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(geraInput("+count+",'ckb')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'ckb'));");
+    OPC.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(opcCerta('"+count+"', 2)); document.getElementById('"+count+"').appendChild(geraInput("+count+",'ckb')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'ckb'));");
     OPC.setAttribute("style", "display:none");
     fieldset.appendChild(OPC);
     
+    var CORRETARD = document.createElement("input");
+    CORRETARD.setAttribute("type", "radio");
+    CORRETARD.setAttribute("id", "correta"+count+"[options]["+count+"]");
+    CORRETARD.setAttribute("name", "correta"+count+"["+count+"]");
+    CORRETARD.setAttribute("class", "corretaradio"+count);
+    CORRETARD.setAttribute("style", "display:none");
+    CORRETARD.setAttribute("disabled", "true");
+    CORRETARD.setAttribute("value", count);
+    fieldset.appendChild(CORRETARD);
     var UE = document.createElement("input");
     UE.setAttribute("type", "text");
     UE.setAttribute("name", "pgt"+count+"[options][]");
@@ -186,10 +229,19 @@ function maisUm() {
     OPR.setAttribute("id", "buttonM"+count+"radio");
     OPR.textContent = "+";
     OPR.setAttribute("type", "button");
-    OPR.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(geraInput("+count+",'radio')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'radio'));");
+    OPR.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(opcCerta('"+count+"', 1)); document.getElementById('"+count+"').appendChild(geraInput("+count+",'radio')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'radio'));");
     OPR.setAttribute("style", "display:none");
     fieldset.appendChild(OPR);
 
+    var CORRETASLC = document.createElement("input");
+    CORRETASLC.setAttribute("type", "radio");
+    CORRETASLC.setAttribute("id", "corretaslc"+count+"[options]["+count+"]");
+    CORRETASLC.setAttribute("name", "correta"+count+"["+count+"]");
+    CORRETASLC.setAttribute("class", "corretaslc"+count);
+    CORRETASLC.setAttribute("style", "display:none");
+    CORRETASLC.setAttribute("disabled", "true");
+    CORRETASLC.setAttribute("value", count);
+    fieldset.appendChild(CORRETASLC);
     var SLC = document.createElement("input");
     SLC.setAttribute("type", "text");
     SLC.setAttribute("name", "pgt"+count+"[options][]");
@@ -211,7 +263,7 @@ function maisUm() {
     OPS.setAttribute("id", "buttonM"+count+"slc");
     OPS.textContent = "+";
     OPS.setAttribute("type", "button");
-    OPS.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(geraInput("+count+",'slc')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'slc'));");
+    OPS.setAttribute("onclick", "document.getElementById('"+count+"').appendChild(opcCerta('"+count+"', 3)); document.getElementById('"+count+"').appendChild(geraInput("+count+",'slc')); document.getElementById('"+count+"').appendChild(deleteButton("+count+",'slc'));");
     OPS.setAttribute("style", "display:none");
     fieldset.appendChild(OPS);
 
@@ -319,6 +371,7 @@ function tipoPGT(local) {
 function deletar(local, opcao) {
     document.getElementById(local).removeChild(document.getElementById("pgt"+local+"[options]["+opcao+"]"));
     document.getElementById(local).removeChild(document.getElementById("button"+local+"[options]["+opcao+"]"));
+    document.getElementById(local).removeChild(document.getElementById("correta"+local+"[options]["+opcao+"]"));
     if (opcao != 0) {
         document.getElementById(local).removeChild(document.getElementById("BR"+local+opcao));
     }
@@ -380,6 +433,12 @@ function ckb(op, local){
             element.style = "display:inline;";
             element.removeAttribute("disabled"); 
         }
+        mostrar = document.getElementsByClassName("corretackb"+local);
+        for (let index = 0; index < mostrar.length; index++) {
+            const element = mostrar[index];
+            element.style = "display:inline;";
+            element.removeAttribute("disabled"); 
+        }
     }else{
         esconder = document.getElementById("buttonM"+local+"ckb");
         esconder.style = "display:none;";
@@ -390,6 +449,11 @@ function ckb(op, local){
             element.setAttribute("disabled", "true");   
         }
         esconder = document.getElementsByClassName("button"+local+"ckb");
+        for (let index = 0; index < esconder.length; index++) {
+            const element = esconder[index];
+            element.style = "display:none;";
+        }
+        esconder = document.getElementsByClassName("corretackb"+local);
         for (let index = 0; index < esconder.length; index++) {
             const element = esconder[index];
             element.style = "display:none;";
@@ -413,6 +477,12 @@ function radio(op, local){
             element.style = "display:inline;";
             element.removeAttribute("disabled"); 
         }
+        mostrar = document.getElementsByClassName("corretaradio"+local);
+        for (let index = 0; index < mostrar.length; index++) {
+            const element = mostrar[index];
+            element.style = "display:inline;";
+            element.removeAttribute("disabled"); 
+        }
     }else{
         esconder = document.getElementsByClassName("pgt"+local+"radio");
         for (let index = 0; index < esconder.length; index++) {
@@ -421,6 +491,11 @@ function radio(op, local){
             element.setAttribute("disabled", "true");   
         }
         esconder = document.getElementsByClassName("button"+local+"radio");
+        for (let index = 0; index < esconder.length; index++) {
+            const element = esconder[index];
+            element.style = "display:none;"; 
+        }
+        esconder = document.getElementsByClassName("corretaradio"+local);
         for (let index = 0; index < esconder.length; index++) {
             const element = esconder[index];
             element.style = "display:none;"; 
@@ -444,6 +519,12 @@ function slc(op, local){
             element.style = "display:inline;";
             element.removeAttribute("disabled"); 
         }
+        mostrar = document.getElementsByClassName("corretaslc"+local);
+        for (let index = 0; index < mostrar.length; index++) {
+            const element = mostrar[index];
+            element.style = "display:inline;";
+            element.removeAttribute("disabled"); 
+        }
     }else{
         esconder = document.getElementsByClassName("pgt"+local+"slc");
         for (let index = 0; index < esconder.length; index++) {
@@ -452,6 +533,11 @@ function slc(op, local){
             element.setAttribute("disabled", "true");   
         }
         esconder = document.getElementsByClassName("button"+local+"slc");
+        for (let index = 0; index < esconder.length; index++) {
+            const element = esconder[index];
+            element.style = "display:none;"; 
+        }
+        esconder = document.getElementsByClassName("corretaslc"+local);
         for (let index = 0; index < esconder.length; index++) {
             const element = esconder[index];
             element.style = "display:none;"; 

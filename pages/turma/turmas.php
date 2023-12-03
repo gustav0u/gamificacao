@@ -2,9 +2,9 @@
     $u = $_SESSION["userId"];
     $conexao = Conexao::getInstance();
     $sql = $conexao->query("select * from usuario, sala_has_usuario, sala where usuario.idusuario = sala_has_usuario.usuario_idusuario and sala_has_usuario.sala_idsala = sala.idsala and idusuario = '$u'");
-    $counter = 3;
+    $counter = 4;
     while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
-        if ($counter == 3) {
+        if ($counter == 4) {
             echo '
                 </div>
                 <br>
@@ -24,9 +24,10 @@
             $fonte = "white";
         }
         echo '
-            <div class="col-md-4" >
+            <div class="col-md-3" >
                 <div class="card" style="background-color:'.$linha["cor"].';">
                     <div class="card-body">
+                        <img src="../assets/img/gamer.jpg" class="card-img-top" alt="...">
                         <h5 class="card-title" style="color:'.$fonte.';">'.$linha["nome"].'</h5>
                         <p class="card-text" style="color:'.$fonte.';">'.$linha["descricao"].'</p>
                         <a href="turma/index.php?t='.$linha["idsala"].'" class="btn btn-purple">Abrir turma</a>

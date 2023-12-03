@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `alternativa` (
   `idalternativa` INT NOT NULL auto_increment,
   `pergunta_idpergunta` INT NOT NULL,
   `texto` VARCHAR(100) NULL,
+  `correta` BOOLEAN,
   PRIMARY KEY (`idalternativa`))
 ENGINE = InnoDB;
 
@@ -342,14 +343,15 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `usuario_has_formulario`
+-- Table `usuario_responde_formulario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `usuario_has_formulario` ;
+DROP TABLE IF EXISTS `usuario_responde_formulario` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `usuario_has_formulario` (
+CREATE TABLE IF NOT EXISTS `usuario_responde_formulario` (
   `usuario_idusuario` INT NOT NULL,
   `formulario_idformulario` INT NOT NULL,
+  `pontuacao`INT,
   PRIMARY KEY (`usuario_idusuario`, `formulario_idformulario`))
 ENGINE = InnoDB;
 

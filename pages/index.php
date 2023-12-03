@@ -29,8 +29,8 @@
     <!-- Botão flutuante -->
     <div class="row justify-content-end fixed-bottom m-1">
         <div class="col-1 mr-4"> <!-- Adicionei a classe 'mr-4' para adicionar uma margem à direita -->
-            <a href="#" class="margin_bottom btn btn-purple btn-circle btn-lg" id="openModal">
-                <i class="fas fa-plus">+</i>
+            <a href="#" class="margin_bottom btn btn-purple rounded-circle btn-lg" id="openModal">
+                <h1><b>&nbsp+&nbsp</b></h1>
             </a>
         </div>
     </div>

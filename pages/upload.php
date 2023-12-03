@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($conn->query($sql) === TRUE) {
                     // Armazena o caminho da imagem na variável de sessão
-                    $_SESSION['user_image'] = $target_file;
+                    $_SESSION['user_image'] = basename($_FILES["fileInput"]["name"]);
                     header('Location: perfil.php');
                 } else {
                     echo "Erro ao atualizar imagem: " . $conn->error;

@@ -28,6 +28,7 @@
 ?>
     <br>
     <div class="container">
+        
         <div class="row">
             <div class="col-12" >
                 <div class="card" style="background-color:<?=$sala["cor"]?>;">
@@ -69,8 +70,8 @@
                                     <form action="acao.php" method="post">
                                         <div class="input-group mb-3">
                                             <input type="hidden" name="turma" value="<?=$turma?>">
-                                            <textarea class="form-control" style="max-height: 200px; overflow:scroll" placeholder="Seu comentário aqui" name="texto" required></textarea>
-                                            <button type="button" class="btn btn-success"><i class="bi bi-recycle"></i></button>
+                                            <textarea class="form-control" style="max-height: 200px; overflow:scroll" placeholder="Seu comentário aqui" id="texto" name="texto" required></textarea>
+                                            <button type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#modalPost" aria-controls="offcanvasTop"><i class="bi bi-recycle"></i></button>
                                             <button type="submit" name="acao" value="post" class="btn btn-secondary">Postar</button>
                                         </div>
                                     </form>
@@ -94,10 +95,24 @@
                 var urlClass = new URL(urlAtual);
                 var sala = urlClass.searchParams.get("t");
                 console.log(sala);
-                req.open('GET', 'postloader.php?t='+sala, true); 
+                req.open('GET', 'postloader.php?t='+sala+"&tipo=1", true); 
                 req.send();
             }
             ajax();
+
+            function posts(){
+                var req = new XMLHttpRequest(); req.onreadystatechange = function(){
+                if (req.readyState == 4 && req.status == 200) {
+                    document.getElementById('posts').innerHTML = req.responseText; }
+                }
+                var urlAtual = window.location.href;
+                var urlClass = new URL(urlAtual);
+                var sala = urlClass.searchParams.get("t");
+                console.log(sala);
+                req.open('GET', 'postloader.php?t='+sala+'&tipo=2', true); 
+                req.send();
+            }
+            posts();
 
             function loadComment(local, post, fonte){
                 req = new XMLHttpRequest(); 
@@ -112,7 +127,19 @@
                 req.open('POST', 'commentloader.php?post='+post+'&fonte='+fonte, true); 
                 req.send(); 
             }
+            function reutilizar(local){
+                document.getElementById("texto").innerHTML = document.getElementById("reuse"+local).innerHTML;
+            }
         </script>
+    </div>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="modalPost" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasTopLabel">Clique para reutilizar um Post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div id="posts" class="offcanvas-body">
+            
+        </div>
     </div>
 <?php
     include "../footer.php";

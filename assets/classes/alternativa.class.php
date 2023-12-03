@@ -7,12 +7,14 @@ class Alternativa{
     private $id;
     private $texto;
     private $idpergunta;
+    private $correta;
     
     //construtor do objeto
-    public function __construct($id, $texto, $idpergunta){
+    public function __construct($id, $texto, $idpergunta, $correta){
         $this->setId($id);
         $this->setTexto($texto);
         $this->setIdpergunta($idpergunta);
+        $this->setCorreta($correta);
     }
     
     //Início dos Setters
@@ -26,6 +28,10 @@ class Alternativa{
 
     public function setIdpergunta($idpergunta){
         $this->idpergunta = $idpergunta;
+    }
+
+    public function setCorreta($correta){
+        $this->correta = $correta;
     }
 
     //Fim dos Setters
@@ -43,15 +49,20 @@ class Alternativa{
         return $this->idpergunta;
     }
 
+    public function getCorreta(){
+        return $this->correta;
+    }
+
 
     //Fim dos Getters
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO alternativa (texto, pergunta_idpergunta)
-                      VALUES (:texto, :idpergunta)';
+        $sql = 'INSERT INTO alternativa (texto, pergunta_idpergunta, correta)
+                      VALUES (:texto, :idpergunta, :correta)';
         $params = array(':texto' => $this->getTexto(),
-                        ':idpergunta' => $this->getIdpergunta()
+                        ':idpergunta' => $this->getIdpergunta(),
+                        ':correta' => $this->getCorreta()
                     );
         return Database::executar($sql, $params);
     }

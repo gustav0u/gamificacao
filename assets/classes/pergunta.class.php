@@ -100,7 +100,7 @@ class Pergunta{
     }
      
 
-    static public function listar($tipo = 0, $info = ''){
+    public static function listar($tipo = 0, $info = ''){
         $sql = 'SELECT * FROM pergunta';
         switch($tipo){
             case 1: $sql .= ' WHERE idpergunta = :info'; break;
