@@ -5,13 +5,15 @@ class Atividade{
     
     //Atributos da classe
     private $id;
-    private $tipo;
+    private $post;
+    private $dataentrega;
     private $valor;
     
     //construtor do objeto
-    public function __construct($id, $tipo, $valor){
+    public function __construct($id, $post, $dataentrega, $valor){
         $this->setId($id);
-        $this->setTipo($tipo);
+        $this->setPost($post);
+        $this->setDataE($dataentrega);
         $this->setValor($valor);
     }
     
@@ -20,8 +22,12 @@ class Atividade{
         $this->id = $id;
     }
 
-    public function setTipo($tipo){
-        $this->tipo = $tipo;
+    public function setPost($post){
+        $this->post = $post;
+    }
+
+    public function setDataE($dataentrega){
+        $this->dataentrega = $dataentrega;
     }
 
     public function setValor($valor){
@@ -35,22 +41,26 @@ class Atividade{
         return $this->id;
     }
 
-    public function getTipo(){
-        return $this->tipo;
+    public function getPost(){
+        return $this->post;
     }
 
+    public function getDataE(){
+        return $this->dataentrega;
+    }
+    
     public function getValor(){
         return $this->valor;
     }
-
 
     //Fim dos Getters
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO atividade (tipo, valor)
-                      VALUES (:tipo, :valor)';
-        $params = array(':tipo' => $this->getTipo(),
+        $sql = 'INSERT INTO atividade (postagem_idpostagem, dataentrega, valor)
+                      VALUES (:post, :dataentrega, :valor)';
+        $params = array(':post' => $this->getPost(),
+                        ':dataentrega' => $this->getDataE(),
                         ':valor' => $this->getValor()
                     );
         return Database::executar($sql, $params);
@@ -65,11 +75,12 @@ class Atividade{
 
     public function editar(){
         $sql = 'UPDATE atividade
-                SET tipo = :tipo,
+                SET valor = :valor,
+                dataentrega = :dataentrega,
                 valor = :valor
                 WHERE   idatividade = :id';
         
-        $params = array(':tipo' => $this->getTipo(),
+        $params = array(':dataentrega' => $this->getDataE(),
                         ':valor' => $this->getValor()
                     );
         return Database::executar($sql, $params);
@@ -80,7 +91,7 @@ class Atividade{
         $sql = 'SELECT * FROM atividade';
         switch($tipo){
             case 1: $sql .= ' WHERE idatividade = :info'; break;
-            case 2: $sql .= ' WHERE tipo like :info';  break;
+            case 2: $sql .= ' WHERE postagem_idpostagem like :info';  break;
         }          
         $params = array();
         if ($tipo > 0)

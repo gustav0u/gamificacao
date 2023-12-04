@@ -2,9 +2,9 @@
     include "../conf/Conexao.php";
     include "header.php" ;
     session_start();
-    $usuario = $_SESSION["username"];
+    $u = isset($_GET["u"]) ? $_GET["u"] : $_SESSION["userId"];
     $conexao = Conexao::getInstance();
-    $consulta = $conexao->query("SELECT *, DATE_FORMAT(`dtNasc`, '%d/%m/%Y') AS `dtNasc` FROM usuario WHERE usuario = '$usuario'");
+    $consulta = $conexao->query("SELECT *, DATE_FORMAT(`dtNasc`, '%d/%m/%Y') AS `dtNasc` FROM usuario WHERE idusuario = '$u'");
     while($linha=$consulta->fetch(PDO::FETCH_ASSOC)){
         $title = "@{$linha["usuario"]} em Study N' Play";
         $usuario = $linha;
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 100%; position: relative;">
-                <img src="<?=URL_BASE?>assets/imgusuarios/<?php echo isset($_SESSION['user_image']) ? $_SESSION['user_image'] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal" width="100%">       
+                <img src="<?=URL_BASE?>assets/imgusuarios/<?php echo isset($usuario["imguser"]) ?$usuario["imguser"] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal" width="100%">       
                     <div class="card-body">
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
@@ -121,21 +121,21 @@
                         <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#exampleModal">BeeCrowd</div>
                         Id: 744186
                         </div>
-                        <span class="badge bg-warning rounded-pill">1408pts</span>
+                        <span class="badge btn btn-warning bg-warning rounded-pill">1408pts</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold">GitHub</div>
                         Id: @thiagow.dc
                         </div>
-                        <span class="badge btn-purple rounded-pill">1229pts</span>
+                        <span class="badge btn btn-purple rounded-pill">1229pts</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold">HTML cursos</div>
                         Id: 744186
                         </div>
-                        <span class="badge bg-danger rounded-pill">587pts</span>
+                        <span class="badge btn bg-danger rounded-pill">587pts</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">

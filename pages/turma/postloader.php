@@ -27,7 +27,7 @@
     $count = 0;
     $conexao = Conexao::getInstance();
     if ($tipo == 1) {
-        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, sala_has_postagem where postagem.usuario_idusuario = $u and postagem.idpostagem = sala_has_postagem.postagem_idpostagem and sala_has_postagem.sala_idsala = $t and usuario.idusuario = $u order by idpostagem desc");
+        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, sala_has_postagem where postagem.usuario_idusuario = usuario.idusuario and postagem.idpostagem = sala_has_postagem.postagem_idpostagem and sala_has_postagem.sala_idsala = $t order by idpostagem desc");
     
         while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
             $dia = explode(".", $linha["dia"]);
@@ -92,15 +92,15 @@
             echo '
                 <div class="row justify-content-center text-start">
                     <div class="col-10" >
-                        <div class="card" style="border: 2px solid '.$font.'; background-color: '.$bg.';">
+                        <div role="button" class="card" style="border: 2px solid '.$font.'; background-color: '.$bg.';">
                             <div class="card-body">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-1">
-                                            <img class="img rounded-circle" src="../../assets/img/userr.webp" alt="" width="100%">
+                                            <img class="img rounded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt="" width="100%">
                                         </div>
                                         <div class="col-11">
-                                            <h5 class="card-title" style="color:'.$fonte.'"><b>'.$linha["nome"].'</b>  &nbsp <span class="text-secondary" style="font-size:60%">'.$dataFormatada.' - '.$linha["hora"].'</span></h5>   
+                                            <h5 class="card-title" style="color:'.$fonte.'"><b>'.$linha["nome"].'</b>  &nbsp <a href="../perfil.php?u='.$linha["idusuario"].'" style="color: '.$fonte.'; font-size:80%">@'.$linha["usuario"].'</a> <span style="color: '.$fonte.'; font-size:60%">'.$dataFormatada.' - '.$linha["hora"].'</span></h5>   
                                             <p class="card-text" style="color:'.$fonte.'">'.$linha["texto"].'</p>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                         <div class="col-1">
                                             <div class="row justify content-end text-end">
                                                 <div class="col-12">
-                                                    <img class="img rounded-circle" src="../../assets/img/userr.webp" alt="" width="70%">
+                                                    <img class="img rounded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$_SESSION["user_image"].'" alt="" width="70%">
                                                 </div> 
                                             </div>
                                         </div>
@@ -145,8 +145,8 @@
             ';
             $count++;
         }
-    }else{
-        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from postagem where postagem.usuario_idusuario = $u");
+    }elseif($tipo == 2){
+        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem where postagem.usuario_idusuario = usuario.idusuario and postagem.usuario_idusuario = $u;");
         while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
             $dia = explode(".", $linha["dia"]);
             switch ($linha["mes"]) {
@@ -204,14 +204,14 @@
             }
             $dataFormatada = $dia[0]. " de ".$linha["mes"]." de ".$dia[2];
             echo '
-                <div class="row justify-content-center text-start" onclick="reutilizar('.$count.')">
+                <div class="row justify-content-center text-start" data-bs-dismiss="offcanvas" onclick="reutilizar('.$count.')">
                     <div class="col-10" >
-                        <div class="card" style="border: 2px solid '.$font.'; background-color: '.$bg.';">
+                        <div role="button" class="card" style="border: 2px solid '.$font.'; background-color: '.$bg.';">
                             <div class="card-body">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-1">
-                                            <img class="img rounded-circle" src="../../assets/img/userr.webp" alt="" width="100%">
+                                            <img class="img rou nded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt="" width="100%">
                                         </div>
                                         <div class="col-11">
                                             <p id="reuse'.$count.'" class="card-text" style="color:'.$fonte.'">'.$linha["texto"].'</p>
@@ -226,5 +226,119 @@
             ';
             $count++;
         }
+    }else{
+        $sql = $conexao->query("select *, date_format(dataentrega, get_format(date, 'EUR')) as 'diaentrega', MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, atividade where atividade.postagem_idpostagem = postagem.idpostagem and postagem.usuario_idusuario = usuario.idusuario and postagem.usuario_idusuario = $u;");
+        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+            $form = $linha["formulario_idformulario"];
+            $conn = Conexao::getInstance();
+            $usuario = $conn->query("select *, date_format(dataenvio, get_format(date, 'EUR')) as 'diaentrega' from usuario, usuario_responde_formulario where usuario.idusuario = usuario_responde_formulario.usuario_idusuario and usuario_responde_formulario.formulario_idformulario = '$form';");
+            $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+            if ($usuario == false) {
+                $allow = true;
+                $entrega = '<span class="badge rounded-pill text-bg-danger"><i class="bi bi-exclamation-circle"></i> Entrega: '.$linha["diaentrega"].'</span>';
+            }else{
+                $allow = false;
+                if ($usuario["diaentrega"] > $linha["diaentrega"]) {
+                    $entrega = '<span class="badge rounded-pill text-bg-warning">Entregue dia: '.$usuario["diaentrega"].'</span>'; 
+                }else{
+                $entrega = '<span class="badge rounded-pill text-bg-success">Entregue dia: '.$usuario["diaentrega"].'</span>'; 
+                }
+            }
+            $dia = explode(".", $linha["dia"]);
+            switch ($linha["mes"]) {
+                
+                case 'January':
+                    $linha["mes"] = "Janeiro";
+                    break;
+                    
+                case 'February':
+                    $linha["mes"] = "Fevereiro";
+                    break;
+                    
+                case 'March':
+                    $linha["mes"] = "Março";
+                    break;
+                    
+                case 'April':
+                    $linha["mes"] = "Abril";
+                    break;
+                    
+                case 'May':
+                    $linha["mes"] = "Maio";
+                    break;
+                    
+                case 'June':
+                    $linha["mes"] = "Junho";
+                    break;
+                    
+                case 'July':
+                    $linha["mes"] = "Julho";
+                    break;
+                    
+                case 'August':
+                    $linha["mes"] = "Agosto";
+                    break;
+                    
+                case 'September':
+                    $linha["mes"] = "Setembro";
+                    break;
+                    
+                case 'October':
+                    $linha["mes"] = "Outubro";
+                    break;
+                    
+                case 'November':
+                    $linha["mes"] = "Novembro";
+                    break;
+                    
+                case 'December':
+                    $linha["mes"] = "Dezembro";
+                    break;
+                default:
+                    $linha["mes"] = "???";
+                    break;
+            }
+            $dataFormatada = $dia[0]. " de ".$linha["mes"]." de ".$dia[2];
+            echo '
+            <div class="row justify-content-center text-start">
+                <div class="col-10" >
+                    <div class="card" style="border: 2px solid '.$font.'; background-color: '.$bg.';">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img rounded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt="" width="100%">
+                                    </div>
+                                    <div class="col-11">
+                                        <h5 class="card-title" style="color:'.$fonte.'"><b>'.$linha["nome"].'</b>  &nbsp <a href="../perfil.php?u='.$linha["idusuario"].'" style="color: '.$fonte.'; font-size:80%">@'.$linha["usuario"].'</a> <span style="color: '.$fonte.'; font-size:60%">'.$dataFormatada.' - '.$linha["hora"].'</span>&nbsp'.$entrega.'</h5>   
+                                        <p class="card-text" style="color:'.$fonte.'">'.$linha["texto"].$linha["formulario_idformulario"].'</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-4">';
+                                    if ($allow) {
+                                        echo '<a href="../formulario/responde.php?f='.$linha["formulario_idformulario"].'" class="btn btn-sm btn-secondary" >
+                                                <i class="bi bi-list-columns"></i> Responder Questionário
+                                              </a>';
+                                    }else{
+                                        echo '<button type="button" class="btn btn-sm btn-success" disabled>
+                                                <i class="bi bi-checked"></i> Você Já respondeu esse questionário
+                                              </button>';
+                                    }
+                                        
+                                    echo '</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            ';
+            $count++;
+        }
     }
+    
 ?>

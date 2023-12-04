@@ -1,6 +1,5 @@
 <?php
     include "../../conf/Conexao.php";
-    
 ?>
 <form id="form" action="acao.php" method="post">
 

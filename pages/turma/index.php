@@ -47,7 +47,7 @@
                     <a class="nav-link" style="color: <?=$font?>;" href="atividade.php?t=<?=$turma?>">Atividades</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" style="background-color:<?=$font?>; color: <?=$fonte?>;" href="#">Postagens</a>
+                    <a class="nav-link active" aria-current="page" style="background-color:<?=$bg?>; border: 1px solid <?=$font?>; color: <?=$fonte?>;" href="#">Postagens</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="color: <?=$font?>;" href="participantes.php?t=<?=$turma?>">Participantes</a>
@@ -63,7 +63,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-1">
-                                    <img class="img rounded-circle" src="<?=URL_BASE."assets/img/userr.webp"?>" alt="" width="100%">
+                                    <img class="img rounded-circle" src="<?=URL_BASE."assets/imgusuarios/".$_SESSION["user_image"]?>" alt="" width="100%">
                                 </div>
                                 <div class="col-11">
                                 <div class="form-floating">

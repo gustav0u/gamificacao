@@ -42,10 +42,16 @@ DROP TABLE IF EXISTS `atividade` ;
 
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `atividade` (
-  `idatividade` INT NOT NULL,
-  `tipoatv_idtipoatv` INT NOT NULL,
+  `idatividade` INT NOT NULL auto_increment,
   `valor` INT NULL,
-  PRIMARY KEY (`idatividade`))
+  `postagem_idpostagem` INT NOT NULL,
+  `dataentrega` DATE NULL,
+  PRIMARY KEY (`idatividade`),
+  CONSTRAINT `fk_atividade_postagem1`
+    FOREIGN KEY (`postagem_idpostagem`)
+    REFERENCES `postagem` (`idpostagem`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -265,20 +271,6 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `tipoatv`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipoatv` ;
-
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `tipoatv` (
-  `idtipoatv` INT NOT NULL,
-  `descricao` VARCHAR(45) NULL,
-  PRIMARY KEY (`idtipoatv`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
 -- Table `tipoisi`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tipoisi` ;
@@ -352,6 +344,7 @@ CREATE TABLE IF NOT EXISTS `usuario_responde_formulario` (
   `usuario_idusuario` INT NOT NULL,
   `formulario_idformulario` INT NOT NULL,
   `pontuacao`INT,
+  `dataenvio`date,
   PRIMARY KEY (`usuario_idusuario`, `formulario_idformulario`))
 ENGINE = InnoDB;
 

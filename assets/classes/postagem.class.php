@@ -8,13 +8,14 @@ class Postagem{
     private $texto;
     private $usuario;
     private $data;
-    
+    private $form;
     //construtor do objeto
-    public function __construct($id, $texto, $usu, $data){
+    public function __construct($id, $texto, $usu, $data, $form){
         $this->setId($id);
         $this->setTexto($texto);
         $this->setUsuario($usu);
         $this->setData($data);
+        $this->setForm($form);
 
     }
     
@@ -33,6 +34,10 @@ class Postagem{
 
     public function setData($data){
         $this->data = $data;
+    }
+
+    public function setForm($form){
+        $this->form = $form;
     }
     //Fim dos Setters
 
@@ -53,15 +58,20 @@ class Postagem{
         return $this->data;
     }
 
+    public function getForm(){
+        return $this->form;
+    }
+
     //Fim dos Getters
 
     //Métodos do banco de dados:
     public function inserir(){
-        $sql = 'INSERT INTO postagem (usuario_idusuario, texto, `data`)
-                      VALUES (:usuario, :texto, :data)';
+        $sql = 'INSERT INTO postagem (usuario_idusuario, texto, `data`, formulario_idformulario)
+                      VALUES (:usuario, :texto, :data, :form)';
         $params = array(':usuario' => $this->getUsuario(),
                         ':texto' => $this->getTexto(),
-                        ':data' => $this->getData()
+                        ':data' => $this->getData(),
+                        ':form' => $this->getForm()
                     );
         return Database::executar($sql, $params);
     }
@@ -76,11 +86,11 @@ class Postagem{
     public function editar(){
         $sql = 'UPDATE texto
                 SET texto = :texto,
-                    usuario  = :usuario
+                    formulario_idformulario = :form
                 WHERE   idpostagem = :id';
         
         $params = array(':texto' => $this->getTexto(),
-                        ':usuario '=> $this->getUsuario()
+                        ':form' => $this->getForm()
                     );
         return Database::executar($sql, $params);
     }

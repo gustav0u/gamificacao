@@ -2,16 +2,24 @@
     include "../../assets/classes/formulario.class.php";
     include "../../conf/Conexao.php";
     $acao = $_POST["acao"] ? $_POST["acao"] : "";
-    $usuario = 1;
+    session_start();
+    $usuario = $_SESSION["userId"];
     $descricao = "";
     $nomeForm = isset($_POST["nomeform"]) ? $_POST["nomeform"] : "";
+    $formulario = isset($_POST["formulario"]) ? $_POST["formulario"] : 0;
     $perguntas = [];
+    for ($i=0; $i < count($_POST); $i++) { 
+        if (isset($_POST["pgt".$i])){
+            $perguntas[] = $_POST["pgt".$i];
+        }
+        
+    }
     switch ($acao) {
         case 'salvar':
             salvar($usuario, $descricao, $nomeForm, $perguntas);
             break;
         case 'responder':
-            responder($usuario, $perguntas);
+            responder($perguntas, $usuario, $formulario);
             break;
         default:
             # code...
@@ -26,55 +34,55 @@
             
         }
         echo "<br>";
-        var_dump($perguntas);
         $conexao = Conexao::getInstance();
         $sql = $conexao->query("insert into formulario(titulo, usuario_idusuario, descricao)
         VALUES ('$nomeForm', '$usuario', '$descricao');");
         $lastInsertForm = $conexao->lastInsertId();
-        foreach ($perguntas as $pergunta) {
-            switch ($pergunta["tipoP"]) {
-                case 'rCurta':
-                   $pergunta["tipoP"] = 1;
-                    break;
+        foreach ($perguntas as $key => $pergunta) {
+            if ($key != "nomeform" && $key != "descricao") {
+                switch ($pergunta["tipoP"]) {
+                    case 'rCurta':
+                       $pergunta["tipoP"] = 1;
+                        break;
+                        
+                    case 'rLonga':
+                        $pergunta["tipoP"] = 2;
+                         break;
+                         
+                    case 'multEsc':
+                        $pergunta["tipoP"] = 3;
+                         break;
+                         
+                    case 'uniEsc':
+                        $pergunta["tipoP"] = 4;
+                         break;
+                         
+                    case 'slc':
+                        $pergunta["tipoP"] = 5;
+                         break;
+                         
+                    case 'date':
+                        $pergunta["tipoP"] = 6;
+                         break;
+                         
+                    case 'time':
+                        $pergunta["tipoP"] = 7;
+                         break;
+                         
+                    case 'file':
+                        $pergunta["tipoP"] = 8;
+                         break;
+                         
+                    case 'scale':
+                        $pergunta["tipoP"] = 9;
+                         break;
                     
-                case 'rLonga':
-                    $pergunta["tipoP"] = 2;
-                     break;
-                     
-                case 'multEsc':
-                    $pergunta["tipoP"] = 3;
-                     break;
-                     
-                case 'uniEsc':
-                    $pergunta["tipoP"] = 4;
-                     break;
-                     
-                case 'slc':
-                    $pergunta["tipoP"] = 5;
-                     break;
-                     
-                case 'date':
-                    $pergunta["tipoP"] = 6;
-                     break;
-                     
-                case 'time':
-                    $pergunta["tipoP"] = 7;
-                     break;
-                     
-                case 'file':
-                    $pergunta["tipoP"] = 8;
-                     break;
-                     
-                case 'scale':
-                    $pergunta["tipoP"] = 9;
-                     break;
-                
-                default:
-                    $pergunta["tipoP"] = 1;
-                    break;
+                    default:
+                        $pergunta["tipoP"] = 1;
+                        break;
+                }
             }
-            var_dump($pergunta["tipoP"]);
-            $p = new Pergunta(0, "", "", "", "", "");
+                $p = new Pergunta(0, "", "", "", "", "");
                 $p->setTipo($pergunta["tipoP"]);
                 $p->setQuestao($pergunta["pergunta"]);
                 $p->setFormulario($lastInsertForm);
@@ -99,25 +107,28 @@
                 }
         }
     }
-    function responder(){
+    function responder($perguntas, $usuario, $formulario){
         $qtd = 1000/(count($_POST)-1);
         $pontuacao = 0;
-        foreach ($_POST as $key => $value) {
+        echo $qtd;
+        foreach ($perguntas as $key => $value) {
             if ($key != "acao") {
                 if (is_array($value)) {
                     foreach ($value as $key1 => $value1) {
                         $conn = Conexao::getInstance();
-                        $alternativa = $conn->query("select * from alternativa where pergunta_idpergunta = '$key'");
+                        $alternativa = $conn->query("select * from alternativa where pergunta_idpergunta = '$key' and correta = 0");
                         $con = Conexao::getInstance();
-                        $correta = $conn->query("select count(*) as contagem from alternativa where pergunta_idpergunta = '$key' and correta = 1");
-                        $corretas = $correta->fetch(PDO::FETCH_ASSOC);
-                        
-                        while ($alt = $alternativa->fetch(PDO::FETCH_ASSOC)) {
-                                if ($alt["correta"] == false && $value1 == $alt["idalternativa"]) {
-                                    $pontuacao -= $qtd/$corretas["contagem"];
-                                }elseif ($alt["correta"] == true && $value1 == $alt["idalternativa"]) {
-                                    $pontuacao += $qtd/$corretas["contagem"];
+                        $correta = $conn->query("select *, count(*) as contagem from alternativa where pergunta_idpergunta = '$key' and correta = 1");
+                        while ($alt = $alternativa->fetch(PDO::FETCH_ASSOC)) { 
+                                if ($value1 == $alt["idalternativa"]) {
+                                    $pontuacao -= $qtd;
                                 }
+                            
+                                    
+                        }
+                        while ($corretas = $correta->fetch(PDO::FETCH_ASSOC)) {
+                            if ($value1 == $corretas["idalternativa"]) 
+                                $pontuacao += $qtd;
                         }
                     }
                 }else{
@@ -126,6 +137,8 @@
                     while ($alt = $alternativa->fetch(PDO::FETCH_ASSOC)) {
                         if ($alt["correta"] == true) {
                             $pontuacao += $qtd;
+                        }else{
+                            $pontuacao -= $qtd;
                         }
                     }
                 }
@@ -135,7 +148,9 @@
             
             
         }
-        echo "<Br>".$pontuacao;
+        include "../../assets/classes/usuario_formulario.php";
+        $usuform = new UsuarioFormulario($usuario, $formulario, $pontuacao, 0);
+        $usuform->inserir();
         
         
 

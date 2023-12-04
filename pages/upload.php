@@ -6,6 +6,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "gamificacao";
+$usuario = $_SESSION["userId"];
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Move o arquivo para o diretório de destino
             if (move_uploaded_file($_FILES["fileInput"]["tmp_name"], $target_file)) {
                 // Atualiza a coluna imguser na tabela usuario
-                $sql = "UPDATE usuario SET imguser = '" . basename($_FILES["fileInput"]["name"]) . "' WHERE idusuario = idusuario";
+                $sql = "UPDATE usuario SET imguser = '" . basename($_FILES["fileInput"]["name"]) . "' WHERE idusuario = $usuario";
 
                 if ($conn->query($sql) === TRUE) {
                     // Armazena o caminho da imagem na variável de sessão

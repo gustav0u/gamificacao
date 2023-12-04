@@ -31,6 +31,7 @@ try {
         // Salva o nome de usuário na sessão
         $_SESSION['userId'] = $user["idusuario"];
         $_SESSION['username'] = $username;
+        $_SESSION['user_image'] = $user["imguser"];
 
         // Redireciona para a página principal
         header('Location: ../index.php');

@@ -13,7 +13,7 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col-1">
-                            <img class="img rounded-circle" src="../../assets/img/userr.webp" alt="" width="100%">
+                            <img class="img rounded-circle" src="'.URL_BASE."assets/imgusuarios/".$linha["imguser"].'" alt="" width="100%">
                         </div>
                         <div class="col-11">
                             <h5 class="card-title" style="color:'.$fonte.'"><b>'.$linha["nome"].'</b></h5>   
