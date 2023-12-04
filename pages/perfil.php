@@ -116,13 +116,47 @@
                 <h4 class="purple">Pontos:</h4>
                 <br>
                 <ul class="list-group list-group-numbered" width="100%">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                        <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#exampleModal">BeeCrowd</div>
-                        Id: 744186
-                        </div>
-                        <span class="badge bg-warning rounded-pill">1408pts</span>
-                    </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+  <div class="ms-2 me-auto">
+    <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#exampleModal">BeeCrowd</div>
+    Id: 744186
+  </div>
+  <span class="badge bg-warning rounded-pill">1408pts</span>
+</li>
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <br><br><br><br>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="container">
+        <br><br><br><br><br><br><br>
+    <h1>Conecte-se na sua conta do <font class="urbanist" color="gold">Beecrowd</font></h1>
+    <form>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" class="form-control" id="senha" placeholder="********" required>
+        </div>
+
+        <button type="submit" class="btn btn-purple">Cadastrar</button>
+    </form>
+</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-purple">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold">GitHub</div>
@@ -158,34 +192,7 @@
         </div>
     </div>
 
-<!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">BeeCrowd</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <?php
-            $file = file_get_contents("beecrowd.json");
-            $dados = json_decode($file);
 
-        ?>
-        Id: <?=$dados->id;?>
-        <br>
-        Nome: <?=$dados->nome;?>
-        <br>
-        Pontos: <?=$dados->pontos;?>
-        <br>
-        Resolvidos: <?=$dados->resolvidos;?>
-        <br>
-        Submissões: <?=$dados->submissoes;?>
-
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Modal do Bootstrap -->
 <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

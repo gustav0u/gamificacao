@@ -41,15 +41,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Criar turma?</h5>
+                <br><br><br><br><br><br><br><br><br><br>
+                
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="turma/criarturmabanco.php" method="post">
+                <h5 class="modal-title">Criar turma?</h5>
                     <div class="row">
                         <!-- Nome da Turma -->
+                       
                         <div class="form-group col-md-12">
                             <div class="row">
                                 <div class="col-10">
