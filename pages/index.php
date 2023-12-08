@@ -1,10 +1,8 @@
     <?php
-    session_start();
-
     // Verificar se o usuário fez login
     if (!isset($_SESSION['username'])) {
         // Redirecionar para a página de login
-        header('Location: login/login.html');
+        header('Location: login/login1.php');
         exit();
     }
         $title = "Gerador de Formulário";
@@ -21,7 +19,7 @@
         <?php
             include "../assets/classes/sala.class.php";
             include "turma/turmas.php";
-            echo $_SESSION["userId"];
+            //echo $_SESSION["userId"];
         ?>
         </div>
         <div class="container">

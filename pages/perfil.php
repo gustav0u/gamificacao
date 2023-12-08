@@ -2,6 +2,12 @@
     include "../conf/Conexao.php";
     include "header.php" ;
     session_start();
+    // Verificar se o usuário fez login
+    if (!isset($_SESSION['username'])) {
+        // Redirecionar para a página de login
+        header('Location: login/login1.php');
+        exit();
+    }
     $u = isset($_GET["u"]) ? $_GET["u"] : $_SESSION["userId"];
     $conexao = Conexao::getInstance();
     $consulta = $conexao->query("SELECT *, DATE_FORMAT(`dtNasc`, '%d/%m/%Y') AS `dtNasc` FROM usuario WHERE idusuario = '$u'");
@@ -17,8 +23,7 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 100%; position: relative;">
-                <img src="<?=URL_BASE?>assets/imgusuarios/<?php echo isset($usuario["imguser"]) ?$usuario["imguser"] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal" width="100%">       
-                    <div class="card-body">
+            <img src="<?=URL_BASE?><?php echo isset($_SESSION['user_image']) ? 'assets/imgusuarios/'.$_SESSION['user_image'] : 'assets/img/perfpadrao.jpg'; ?>" class="" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">                    <div class="card-body">
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
                         <p class="card-text">

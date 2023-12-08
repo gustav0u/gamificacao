@@ -2,6 +2,11 @@
     include "../../conf/Conexao.php";
     include "../../assets/classes/sala.class.php";
     session_start();
+    if (!isset($_SESSION['username'])) {
+        // Redirecionar para a página de login
+        header('Location: ../login/login1.php');
+        exit();
+    }
     $u = $_SESSION['userId'];
     $turma = isset($_GET["t"]) ? $_GET["t"] : 0;
     $sala = Sala::lista(1, $turma);
@@ -26,6 +31,8 @@
     include "../header.php";
     include "../menu.php";
 ?>
+
+
     <br>
     <div class="container">
         
@@ -86,6 +93,7 @@
         <br>
         <div id="post"></div>
         <script type="text/javascript">
+       
             function ajax(){
                 var req = new XMLHttpRequest(); req.onreadystatechange = function(){
                 if (req.readyState == 4 && req.status == 200) {

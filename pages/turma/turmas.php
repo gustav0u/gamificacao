@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    // Redirecionar para a página de login
+    header('Location: ../login/login1.php');
+    exit();
+}
     $u = $_SESSION["userId"];
     $conexao = Conexao::getInstance();
     $sql = $conexao->query("select * from usuario, sala_has_usuario, sala where usuario.idusuario = sala_has_usuario.usuario_idusuario and sala_has_usuario.sala_idsala = sala.idsala and idusuario = '$u'");
@@ -23,6 +29,7 @@
         }else {
             $fonte = "white";
         }
+      //  var_dump($linha);
         echo '
             <div class="col-md-3" >
                 <div class="card" style="background-color:'.$linha["cor"].';">

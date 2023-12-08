@@ -67,10 +67,10 @@ class Sala{
         return Database::executar($sql, $params);
     }
 
-    public function excluir(){
+    public static function excluir($id){
         $sql = 'DELETE FROM sala 
                 WHERE idsala = :id';         
-        $params = array(':id'=>$this->getId());         
+        $params = array(':id'=>$id);         
         return Database::executar($sql, $params);
     }
 
