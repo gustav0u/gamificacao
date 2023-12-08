@@ -1,6 +1,13 @@
 <?php
 // Este é um exemplo simples, e você pode precisar adaptá-lo ao seu ambiente e banco de dados específicos.
+session_start();
 
+    // Verificar se o usuário fez login
+    if (!isset($_SESSION['username'])) {
+        // Redirecionar para a página de login
+        header('Location: login/login.html');
+        exit();
+    }
 // Conecte-se ao banco de dados (substitua com suas próprias credenciais)
 $servername = "localhost";
 $username = "root";

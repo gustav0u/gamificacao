@@ -26,6 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $conn->lastInsertId();
         $conexao = Conexao::getInstance();
         $conexao->query("insert into sala_has_usuario (sala_idsala, usuario_idusuario, tipousu_idtipousu) values ('$id', '$u', 1)");
-        //header('Location: ../index.php');
+        header('Location: ../index.php');
 }
 ?>

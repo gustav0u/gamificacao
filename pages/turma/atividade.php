@@ -2,6 +2,12 @@
     include "../../conf/Conexao.php";
     include "../../assets/classes/sala.class.php";
     session_start();
+    // Verificar se o usuário fez login
+    if (!isset($_SESSION['username'])) {
+        // Redirecionar para a página de login
+        header('Location: ../login/login1.php');
+        exit();
+    }
     $u = $_SESSION['userId'];
     $turma = isset($_GET["t"]) ? $_GET["t"] : 0;
     $sala = Sala::lista(1, $turma);
