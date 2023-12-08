@@ -3,6 +3,7 @@
     include "../../conf/Conexao.php";
     $acao = $_POST["acao"] ? $_POST["acao"] : "";
     session_start();
+    $t = $_GET["t"];
     $usuario = $_SESSION["userId"];
     $descricao = "";
     $nomeForm = isset($_POST["nomeform"]) ? $_POST["nomeform"] : "";
@@ -19,7 +20,7 @@
             salvar($usuario, $descricao, $nomeForm, $perguntas);
             break;
         case 'responder':
-            responder($perguntas, $usuario, $formulario);
+            responder($perguntas, $usuario, $formulario, $t);
             break;
         default:
             # code...
@@ -106,8 +107,9 @@
                     }
                 }
         }
+        header("location:../index.php");
     }
-    function responder($perguntas, $usuario, $formulario){
+    function responder($perguntas, $usuario, $formulario, $t){
         $qtd = 1000/(count($_POST)-1);
         $pontuacao = 0;
         echo $qtd;
@@ -151,7 +153,7 @@
         include "../../assets/classes/usuario_formulario.php";
         $usuform = new UsuarioFormulario($usuario, $formulario, $pontuacao, 0);
         $usuform->inserir();
-        
+        header("location:../turma/atividade.php?t=$t");
         
 
     }

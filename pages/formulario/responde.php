@@ -1,7 +1,8 @@
 <?php
     include "../../conf/Conexao.php";
+    $t = $_GET["t"];
 ?>
-<form id="form" action="acao.php" method="post">
+<form id="form" action="acao.php?t=<?=$t?>" method="post">
 
 </form>
 <script>

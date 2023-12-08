@@ -1,0 +1,54 @@
+/* .balaoesq {
+    background: #C242FF;
+    border-radius: 0px 50px 50px 50px;
+    border: 10px solid C242FF;
+    min-width: 5px;
+    min-height: 10px;
+    width:200px;
+    position: relative;
+    box-shadow:  2px 2px 2px 1px gray;
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: initial;
+    
+} */
+.balaoesq {
+    background: #C242FF;
+    border-radius: 0px 50px 50px 50px;
+    border: 12px solid #C242FF;
+    min-width: 5px;
+    min-height: 10px;
+    max-width: fit-content;
+    /* box-shadow:  2px 2px 2px 1px gray; */
+    flex-shrink: initial;
+    word-wrap: break-word;
+    margin-left: 2%;
+}
+.balaodir {
+    background: #9662FF;
+    border-radius: 50px 0px 50px 50px;
+    border: 12px solid #9662FF;
+    min-width: 5px;
+    min-height: 10px;
+    max-width: fit-content;
+    /* box-shadow:  2px 2px 2px 1px gray; */
+    word-wrap: break-word;
+    text-align: left;
+    margin-right: 2%;
+}
+.balaospace{
+    height: 5px;
+}
+.chat{
+    background-color: #221F2C;
+    max-height: 100vh;
+}
+.linkLimpo {
+    text-decoration: none;
+}
+
+.linkLimpo:hover {
+    background-color: gray; 
+    transition: 0.5s;
+    opacity: 0.7;
+}

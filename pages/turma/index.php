@@ -4,6 +4,9 @@
     session_start();
     $u = $_SESSION['userId'];
     $turma = isset($_GET["t"]) ? $_GET["t"] : 0;
+    if ($turma == 0) {
+        header("location:../index.php");
+    }
     $sala = Sala::lista(1, $turma);
     $title = "#".$sala["idsala"]." Sala: ".$sala["nome"];
     $hexa = $sala["cor"];

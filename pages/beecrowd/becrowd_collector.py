@@ -61,7 +61,9 @@ def get_profiles_data(profileIDs):
 
 
 if __name__ == "__main__":
-    profile_list = [
+    with open("beecrowd.json") as file:
+        data = json.load(file)
+    """ d = [
         "882915",
         "882916",
         "882918",
@@ -70,7 +72,7 @@ if __name__ == "__main__":
         "882921",
         "882922",
         "882923",
-    ]
+    ] """
     print("Starting...")
-    results = get_profiles_data(profile_list)
+    results = get_profiles_data(data)
     print("Finished!")

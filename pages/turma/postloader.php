@@ -146,7 +146,7 @@
             $count++;
         }
     }elseif($tipo == 2){
-        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem where postagem.usuario_idusuario = usuario.idusuario and postagem.usuario_idusuario = $u;");
+        $sql = $conexao->query("select *,  MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, sala_has_postagem where postagem.usuario_idusuario = usuario.idusuario and postagem.idpostagem = sala_has_postagem.postagem_idpostagem and sala_has_postagem.sala_idsala = $t order by idpostagem desc;");
         while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
             $dia = explode(".", $linha["dia"]);
             switch ($linha["mes"]) {
@@ -211,7 +211,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-1">
-                                            <img class="img rou nded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt="" width="100%">
+                                            <img class="img rounded-circle" src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt="" width="100%">
                                         </div>
                                         <div class="col-11">
                                             <p id="reuse'.$count.'" class="card-text" style="color:'.$fonte.'">'.$linha["texto"].'</p>
@@ -227,15 +227,20 @@
             $count++;
         }
     }else{
-        $sql = $conexao->query("select *, date_format(dataentrega, get_format(date, 'EUR')) as 'diaentrega', MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, atividade where atividade.postagem_idpostagem = postagem.idpostagem and postagem.usuario_idusuario = usuario.idusuario and postagem.usuario_idusuario = $u;");
+        $sql = $conexao->query("select *, date_format(curdate(), get_format(date, 'EUR')) as hoje, date_format(dataentrega, get_format(date, 'EUR')) as 'diaentrega', MONTHNAME(data) as mes, date_format(data, get_format(date, 'EUR')) as 'dia', date_format(data, '%Hh%i') as hora from usuario, postagem, atividade, sala_has_postagem where atividade.postagem_idpostagem = postagem.idpostagem and postagem.usuario_idusuario = usuario.idusuario and postagem.usuario_idusuario = usuario.idusuario and postagem.idpostagem = sala_has_postagem.postagem_idpostagem and sala_has_postagem.sala_idsala = $t order by idpostagem desc;");
         while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
             $form = $linha["formulario_idformulario"];
             $conn = Conexao::getInstance();
-            $usuario = $conn->query("select *, date_format(dataenvio, get_format(date, 'EUR')) as 'diaentrega' from usuario, usuario_responde_formulario where usuario.idusuario = usuario_responde_formulario.usuario_idusuario and usuario_responde_formulario.formulario_idformulario = '$form';");
+            $usuario = $conn->query("select *,date_format(dataenvio, get_format(date, 'EUR')) as 'diaentrega' from usuario, usuario_responde_formulario where usuario.idusuario = usuario_responde_formulario.usuario_idusuario and usuario_responde_formulario.formulario_idformulario = '$form';");
             $usuario = $usuario->fetch(PDO::FETCH_ASSOC);
             if ($usuario == false) {
                 $allow = true;
-                $entrega = '<span class="badge rounded-pill text-bg-danger"><i class="bi bi-exclamation-circle"></i> Entrega: '.$linha["diaentrega"].'</span>';
+                if ($linha["diaentrega"] < $linha["hoje"]) {
+                    $entrega = '<span class="badge rounded-pill text-bg-danger"><i class="bi bi-exclamation-circle"></i> Entrega: '.$linha["diaentrega"].'</span>';
+                }
+                else{
+                    $entrega = '<span class="badge rounded-pill text-bg-warning"><i class="bi bi-exclamation-circle"></i> Entrega: '.$linha["diaentrega"].'</span>';
+                }
             }else{
                 $allow = false;
                 if ($usuario["diaentrega"] > $linha["diaentrega"]) {
@@ -311,7 +316,7 @@
                                     </div>
                                     <div class="col-11">
                                         <h5 class="card-title" style="color:'.$fonte.'"><b>'.$linha["nome"].'</b>  &nbsp <a href="../perfil.php?u='.$linha["idusuario"].'" style="color: '.$fonte.'; font-size:80%">@'.$linha["usuario"].'</a> <span style="color: '.$fonte.'; font-size:60%">'.$dataFormatada.' - '.$linha["hora"].'</span>&nbsp'.$entrega.'</h5>   
-                                        <p class="card-text" style="color:'.$fonte.'">'.$linha["texto"].$linha["formulario_idformulario"].'</p>
+                                        <p class="card-text" style="color:'.$fonte.'">'.$linha["texto"].'</p>
                                     </div>
                                 </div>
                             </div>
@@ -319,7 +324,7 @@
                                 <div class="row">
                                     <div class="col-4">';
                                     if ($allow) {
-                                        echo '<a href="../formulario/responde.php?f='.$linha["formulario_idformulario"].'" class="btn btn-sm btn-secondary" >
+                                        echo '<a href="../formulario/responde.php?f='.$linha["formulario_idformulario"].'&t='.$t.'" class="btn btn-sm btn-secondary" >
                                                 <i class="bi bi-list-columns"></i> Responder Questionário
                                               </a>';
                                     }else{

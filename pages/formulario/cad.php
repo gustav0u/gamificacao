@@ -1,8 +1,11 @@
 <?php
     $title = "Gerador de Formulário";
     include "../header.php";
+    session_start();
+    include "../menu.php";
 ?>
 <script src="../../assets/js/funcao.js"></script>
+<div class="space"></div>
 <div class="container">
     <div class="row">
     <form method="post" action="acao.php" class="col col-12">

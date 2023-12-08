@@ -108,10 +108,10 @@ class Usuario{
         return Database::executar($sql, $params);
     }
 
-    public function excluir(){
+    public static function excluir($id){
         $sql = 'DELETE FROM usuario 
                 WHERE idusuario = :id';         
-        $params = array(':id'=>$this->getId());         
+        $params = array(':id'=>$id);         
         return Database::executar($sql, $params);
     }
 

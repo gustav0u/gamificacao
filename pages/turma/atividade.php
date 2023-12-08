@@ -76,14 +76,13 @@
                                             <button type="button" class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#modalPost" aria-controls="offcanvasTop"><i class="bi bi-recycle"></i></button>
                                             <button type="submit" name="acao" value="atv" class="btn btn-secondary">Postar</button>
                                         </div>
-                                        <div  style="color:<?=$fonte?>; border: 2px solid <?=$font?>; background-color: <?=$bg?>;">
-                                            <span>Data de Entrega:</span><br>
-                                            <input type="date" class="form-control" name="dataentrega" id="dataentrega">
-                                        </div>
                                         <div id="anexo" style="color:<?=$fonte?>; border: 2px solid <?=$font?>; background-color: <?=$bg?>;">
                                             <i class="bi bi-paperclip"></i> <em>sem anexos</em>
                                         </div>
-                                        
+                                        <div  style="color:<?=$fonte?>; border: 2px solid <?=$font?>; background-color: <?=$bg?>;">
+                                            <span>Data de Entrega:</span><br>
+                                            <input type="date" class="form-control" name="dataentrega" id="dataentrega">
+                                        </div>                                        
                                     </form>
                                 </div>
                                 </div>

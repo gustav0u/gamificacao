@@ -1,16 +1,17 @@
     <?php
-    session_start();
 
     // Verificar se o usuário fez login
-    if (!isset($_SESSION['username'])) {
-        // Redirecionar para a página de login
-        header('Location: login/login.html');
-        exit();
-    }
+    session_start();
         $title = "Gerador de Formulário";
         include "header.php";
         include "menu.php";
         include "../conf/Conexao.php";
+        
+        if (!isset($_SESSION['username'])) {
+            // Redirecionar para a página de login
+            header('Location: login/login.php');
+            exit();
+        }
     ?>
     <html lang="en">
     <body>
