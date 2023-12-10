@@ -1,6 +1,7 @@
 <?php
     include "../../conf/Conexao.php";
     include "../../assets/classes/sala.class.php";
+    include "../../assets/classes/codsala.class.php";
     session_start();
     if (!isset($_SESSION['username'])) {
         // Redirecionar para a página de login
@@ -9,7 +10,7 @@
     }
     $turma = isset($_GET["t"]) ? $_GET["t"] : 0;
     $sala = Sala::lista(1, $turma);
-    session_start();
+    $codigo = Codsala::listar(1, $sala["idsala"]);
     $u = $_SESSION["userId"];
     $hexa = $sala["cor"];
     $r = hexdec(substr($hexa,1,2)); // Se for sem o #, mude para 0, 2
@@ -31,6 +32,9 @@
     }
     include "../header.php";
     include "../menu.php";
+
+
+
 ?>
     <br>
     <div class="container">
@@ -80,7 +84,7 @@
                                 </div>
                                 <div class="col-4">
                                 <div class="card-subtitle" style="color:<?=$fonte?>;"><br>Código de Entrada da Turma:</div>
-                                    <p class="card-text bg-white"><h3 class="bg-white rounded-4">BDOCJF0923 <i role="button" class="bi bi-eye-fill"></i></h3></p>
+                                    <p class="card-text bg-white"><h3 class="bg-white rounded-4"><span id="codigo"><?=$codigo["cod_sala"]?></span> <i id="olho" role="button" class="bi bi-eye-slash-fill" onclick="toggleOlho()"></i></h3></p>
                                     
                                 </div>
                             </div>
@@ -134,7 +138,6 @@
                 var urlAtual = window.location.href;
                 var urlClass = new URL(urlAtual);
                 var sala = urlClass.searchParams.get("t");
-                console.log(sala);
                 req.open('GET', 'usuario_turmaloader.php?t='+sala+"&tipo=1", true); 
                 req.send();
             }
@@ -148,11 +151,27 @@
                 var urlAtual = window.location.href;
                 var urlClass = new URL(urlAtual);
                 var sala = urlClass.searchParams.get("t");
-                console.log(sala);
                 req.open('GET', 'usuario_turmaloader.php?t='+sala+"&tipo=2", true); 
                 req.send();
             }
             aluno();
+            var estadoOlho = false;
+            var code = "";
+            function toggleOlho(){
+                icone = document.getElementById("olho");
+                codigo = document.getElementById("codigo");
+                if(estadoOlho == true){
+                    icone.setAttribute("class", "bi bi-eye-slash-fill");
+                    codigo.innerHTML = code;
+                    estadoOlho = false;
+                }else{
+                    icone.setAttribute("class", "bi bi-eye-fill");
+                    code = codigo.innerHTML;
+                    codigo.innerHTML = "**********";
+                    estadoOlho = true;
+                }
+            }
+            toggleOlho();
     </script>
 <?php
     include "../footer.php";

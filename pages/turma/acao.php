@@ -3,7 +3,7 @@
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : (isset($_GET["acao"]) ? $_GET["acao"] : "voltar");
     session_start();
     $u = $_SESSION["userId"];
-    $t = isset($_POST["turma"]) ? $_POST["turma"] : $_GET["turma"];
+    $t = isset($_POST["turma"]) ? $_POST["turma"] : (isset($_GET["turma"]) ? $_GET["turma"] : "voltar");
     $txt = isset($_POST["texto"]) ? $_POST["texto"] : "- Post Vazio -";
     switch ($acao) {
         case 'post':
@@ -18,6 +18,11 @@
             $f = isset($_POST["formulario"]) ? $_POST["formulario"] : null;
             $p = post($u, $t, $txt, 2, $f);
             atv($v, $dt, $p, $t);
+            break;
+        case 'entrar':
+            $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
+            entrar($u, $codigo);
+            break;
         default:
             # code...
             break;
@@ -55,5 +60,15 @@
         $atividade = new Atividade(0, $p, $dt, $v);
         $atividade->inserir();
         header("location:atividade.php?t=$t");
+    }
+    function entrar($u, $c){
+        include "../../assets/classes/codsala.class.php";
+        $cod = Codsala::listar(2, $c);
+        if ($cod != false) {
+            $sala = $cod["sala_idsala"];
+            $conexao = Conexao::getInstance();
+            $conexao->query("insert into sala_has_usuario (sala_idsala, usuario_idusuario, tipousu_idtipousu) values ('$sala', '$u', 2)");
+        }
+        header("location:../index.php");
     }
 ?>

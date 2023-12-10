@@ -99,6 +99,20 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `codsala`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `codsala` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `codsala` (
+  `cod_sala` varchar(10) NOT NULL,
+  `sala_idsala` INT NOT NULL UNIQUE,
+  PRIMARY KEY (`cod_sala`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
 -- Table `comentario`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `comentario` ;

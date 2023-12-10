@@ -7,7 +7,6 @@
         include_once($path);
 ?> 
 <title><?= $title ?></title>
-<<<<<<< HEAD
 <nav class="navbar bg-dark border-bottom border-body navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand text-white" href="<?=URL_BASE."pages/index.php"?>">
