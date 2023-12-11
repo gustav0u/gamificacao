@@ -2,6 +2,7 @@
     
     session_start();
     include "../header.php";
+    $title = "Chat";
     include "../menu.php" ;
     $cad = isset($_GET["cad"]) ? $_GET["cad"] : 0;
 ?>
@@ -114,7 +115,7 @@
                             <span class="visually-hidden">Loading...</span>
                             </div>
                             <br>
-                            <img src="img/logo.png" alt="" width="50%">
+                            <img src="'.URL_BASE.'assets/img/logo.png" alt="" width="50%">
                         </div>
                     </div>'
                 ;
