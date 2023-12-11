@@ -5,7 +5,7 @@
     session_start();
     $t = $_GET["t"];
     $usuario = $_SESSION["userId"];
-    $descricao = "";
+    $descricao = isset($_POST["descricao"]) ? $_POST["descricao"] : "";
     $nomeForm = isset($_POST["nomeform"]) ? $_POST["nomeform"] : "";
     $formulario = isset($_POST["formulario"]) ? $_POST["formulario"] : 0;
     $perguntas = [];
@@ -107,10 +107,10 @@
                     }
                 }
         }
-        header("location:../index.php");
+        header("location:../index.php?e=true&t=form");
     }
     function responder($perguntas, $usuario, $formulario, $t){
-        $qtd = 1000/(count($_POST)-1);
+        $qtd = 1000/(count($_POST)-2);
         $pontuacao = 0;
         echo $qtd;
         foreach ($perguntas as $key => $value) {

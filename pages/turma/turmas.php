@@ -26,7 +26,7 @@
       //  var_dump($linha);
         echo '
             <div class="col-md-3" >
-                <div class="card" style="background-color:'.$linha["cor"].';">
+                <div class="card rounded-4" style="background-color:'.$linha["cor"].';">
                     <div class="card-body">
                         <img src="../assets/img/gamer.jpg" class="card-img-top" alt="...">
                         <h5 class="card-title" style="color:'.$fonte.';">'.$linha["nome"].'</h5>

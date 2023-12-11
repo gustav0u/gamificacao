@@ -1,6 +1,6 @@
 <?php
     $u = isset($_SESSION["userId"]) ? $_SESSION["userId"] : "";
-    require_once 'conexao.php';
+    require_once '../../conf/conexao.php';
 ?>
 <script type="text/javascript">
     function ajax(){
@@ -18,29 +18,6 @@
     ajax();
     setInterval(function(){ajax();}, 1000);
 </script>
-<?php
-    $colors = array();
-    $color = json_decode(file_get_contents("colors.json"));
-    foreach ($color as $key => $value) {
-        $colors[$key] = $value;
-    }
-    if (isset($colors["chat"]) and $colors["chat"] != $c) {
-        $conexao = Conexao::getInstance();
-        $consulta=$conexao->query("select nome from usuario, chat_has_usuario, chat where usuario.idusuario = chat_has_usuario.usuario_idusuario and chat_has_usuario.chat_idchat = chat.idchat; ");  
-        
-        while($linha=$consulta->fetch(PDO::FETCH_ASSOC)){
-            $colors[$linha['nome']] = random_color(); 
-        }
-        $colors["chat"] = $c;
-        $fp = fopen("colors.json", "w");
-        $json = json_encode($colors);
-        fwrite($fp, $json);
-        fclose($fp);
-    }
-    function random_color($start = 0x000000, $end = 0xFFFFFF) {
-        return sprintf('#%06x', mt_rand($start, $end));
-    }
-?>
 <div id="chat">
 
 </div>

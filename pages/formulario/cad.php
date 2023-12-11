@@ -14,7 +14,11 @@
             <div class="col-8"><input type="text" placeholder="Nome do Formulário" class="form-control" id="nomeform" name="nomeform"></div>
             <div class="col-2"></div>
         </div>
-        
+        <div class="row"> 
+            <div class="col-2"></div>
+            <div class="col-8"><input type="text" placeholder="Descrição" class="form-control" id="descricao" name="descricao"></div>
+            <div class="col-2"></div>
+        </div>
 
         <div class="row"> 
             <div class="col-2"></div>

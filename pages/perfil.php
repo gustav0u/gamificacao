@@ -19,11 +19,23 @@
     $conn = Conexao::getInstance();
     $idexternos = $conn->query("select * from usuario,idexterno where usuario.idusuario = idexterno.usuario_idusuario and usuario_idusuario = $u and nomesite = 'beecrowd';");
     $idexterno = $idexternos->fetch(PDO::FETCH_ASSOC);
-    $fp = file_get_contents("..//profiles_data.json");
+    $fp = file_get_contents("../profiles_data.json");
     $fp = json_decode($fp);
     foreach ($fp as $chave => $valor) {
-        if ($valor->user_name == $idexterno["username"]) {
+        if ($idexterno && $valor->user_name == $idexterno["username"]) {
             $pessoa = $valor;
+        }
+    }
+    if (!isset($pessoa)) {
+        $pessoa = [];
+    }
+    $idexternos1 = $conn->query("select * from usuario,idexterno where usuario.idusuario = idexterno.usuario_idusuario and usuario_idusuario = $u and nomesite = 'github';");
+    $idexterno1 = $idexternos1->fetch(PDO::FETCH_ASSOC);
+    $fp1 = file_get_contents("../profiles_github.json");
+    $fp1 = json_decode($fp1);
+    foreach ($fp1 as $chave => $valor) {
+        if ($valor->login == $idexterno1["username"]) {
+            $pessoa1 = $valor;
         }
     }
     $salacon = Conexao::getInstance();
@@ -35,9 +47,8 @@
     <div class="row">
         <div class="col-3">
             <div class="card" style="width: 100%; position: relative;">
+            <img role="button"src="<?=URL_BASE?>assets/imgusuarios/<?php echo isset($usuario["imguser"]) ?$usuario["imguser"] : '../assets/img/perfpadrao.jpg'; ?>"  class="card-img-top" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal" width="100%"> 
                     <div class="card-body">
-            <img src="<?=URL_BASE?><?php echo isset($_SESSION['user_image']) ? 'assets/imgusuarios/'.$_SESSION['user_image'] : 'assets/img/perfpadrao.jpg'; ?>" class="" alt="Perfil Padrão" id="profileImage" data-bs-toggle="modal" data-bs-target="#uploadModal">                    <div class="card-body">
->>>>>>> d5d81a24ae134b3dee6fa228b7238b1b6d96ec9c
                         <h5 class="card-title"><b><?= $usuario["nome"]?></b></h5>
                         <h6 class="purple">@<?= $usuario["usuario"] ?></h6>
                     </div>
@@ -63,29 +74,28 @@
                             <i width="1px"><img src="https://beecrowd.io/wp-content/uploads/2021/08/beecrowd__roxoHorClean-small-PNG-1.png" alt="" width="10%"></i>
                             <i class="bi bi-filetype-html text-danger"></i>
                             <i class="bi bi-filetype-java text-info"></i>
-                            <i>      <!-- Botão de insígnia -->
-  
-    <div class="off-canvas" id="myCanvas">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <br><br><br> 
-        <h3 class="">Inserir Insígnia: </h3>
-        <form action="insignia/upload.php" method="post" enctype="multipart/form-data">
-          <div class="mb-3">
-            <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
-          </div>
-          <button type="submit" class="btn btn-success">Enviar</button>
-          <!-- Botão para fechar o off-canvas -->
-          <button type="button" class="btn btn-purple" onclick="toggleCanvas()">Fechar</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+                            <i>      
+                                <!-- Botão de insígnia -->
+                                <div class="off-canvas" id="myCanvas">
+                                    <div class="container">
+                                        <div class="row">
+                                        <div class="col-12">
+                                            <br><br><br> 
+                                            <h3 class="">Inserir Insígnia: </h3>
+                                            <form action="insignia/upload.php" method="post" enctype="multipart/form-data">
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*">
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Enviar</button>
+                                            <!-- Botão para fechar o off-canvas -->
+                                            <button type="button" class="btn btn-purple" onclick="toggleCanvas()">Fechar</button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-
-</i>
+                            </i>
                         </h1>
                     </div>
                 </div>
@@ -131,18 +141,18 @@
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#exampleModal">BeeCrowd</div>
-                        Id: <?=$idexterno["id"]?>
+                        Id: <?php echo is_array($pessoa)  ? "sem dados" : $idexterno["id"]?>
                         </div>
-                        <span class="badge bg-warning rounded-pill"><?=$pessoa->points?>pts</span>
+                        <span class="badge bg-warning rounded-pill"><?php echo is_array($pessoa)  ? "sem dados" : $pessoa->points?>pts</span>
                     </li>
-                    <div disabled>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
-                        <div class="fw-bold">GitHub</div>
-                        Id: usuario
+                        <div class="fw-bold link" data-bs-toggle="modal" data-bs-target="#modalgithub">Github</div>
+                        Id: <?=$idexterno1["id"]?>
                         </div>
-                        <span class="badge btn btn-purple rounded-pill">1229pts</span>
+                        <span class="badge btn-purple rounded-pill"><?=$pessoa1->public_repos?> repositórios</span>
                     </li>
+                    <div disabled>
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                         <div class="fw-bold">HTML cursos</div>
@@ -274,9 +284,38 @@ input.addEventListener('change', function() {
                 <img src="<?=$pessoa->avatar_photo?>" alt="Avatar" class="card-img">
             </div>
             <div class="col-9">
-                User name:<?=$pessoa->user_name; ?> <br>
-                Ranking: <?=$pessoa->ranking?> <br>
-                Pontos: <?=$pessoa->points?>  <br>
+                <?php 
+                echo '
+                User name: '.$pessoa->user_name.'<br>
+                Ranking: '.$pessoa->ranking.'<br>
+                Pontos: '.$pessoa->points.' <br>
+                ';
+                ?>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalgithub" tabindex="-1" aria-labelledby="modalgithub" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalgithub">Github</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-3">
+                <img src="<?=$pessoa1->avatar_url?>" alt="Avatar" class="card-img">
+            </div>
+            <div class="col-9">
+                User name:<?=$pessoa1->login; ?> <br>
+                Repositórios Públicos: <?=$pessoa1->public_repos?> <br>
+                URL pessoal: <?=$pessoa1->url?>  <br>
+                Bio: <?=$pessoa1->bio?>  <br>
 
             </div>
         </div>

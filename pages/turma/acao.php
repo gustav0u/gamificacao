@@ -3,7 +3,7 @@
     $acao = isset($_POST["acao"]) ? $_POST["acao"] : (isset($_GET["acao"]) ? $_GET["acao"] : "voltar");
     session_start();
     $u = $_SESSION["userId"];
-    $t = isset($_POST["turma"]) ? $_POST["turma"] : (isset($_GET["turma"]) ? $_GET["turma"] : "voltar");
+    $t = isset($_POST["turma"]) ? $_POST["turma"] : (isset($_GET["turma"]) ? $_GET["turma"] : "");
     $txt = isset($_POST["texto"]) ? $_POST["texto"] : "- Post Vazio -";
     switch ($acao) {
         case 'post':
@@ -23,8 +23,20 @@
             $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
             entrar($u, $codigo);
             break;
+        case 'addprf':
+            $user = isset($_GET["u"]) ? $_GET["u"] : "";
+            addProfessor($t, $user);
+            break;
+        case 'rmprf':
+            $user = isset($_GET["u"]) ? $_GET["u"] : "";
+            removeProfessor($t, $user);
+            break;
+        case 'remove':
+            $user = isset($_GET["u"]) ? $_GET["u"] : "";
+            remove($t, $user);
+            break;
         default:
-            # code...
+            header("location:../index.php");
             break;
     }
     function post($u, $t, $txt, $tipo, $form = null){
@@ -68,7 +80,28 @@
             $sala = $cod["sala_idsala"];
             $conexao = Conexao::getInstance();
             $conexao->query("insert into sala_has_usuario (sala_idsala, usuario_idusuario, tipousu_idtipousu) values ('$sala', '$u', 2)");
+            header("location:../index.php?e=true");
+        }else{
+            header("location:../index.php?e=false");
         }
-        header("location:../index.php");
+        
+    }
+    
+    function addProfessor($t, $u){
+        $conexao = Conexao::getInstance();
+        $conexao->query("update sala_has_usuario set tipousu_idtipousu = 1 where sala_idsala = '$t' and usuario_idusuario = '$u';");
+        header("location:participantes.php?t=$t");
+    }
+
+    function removeProfessor($t, $u){
+        $conexao = Conexao::getInstance();
+        $conexao->query("update sala_has_usuario set tipousu_idtipousu = 2 where sala_idsala = '$t' and usuario_idusuario = '$u';");
+        header("location:participantes.php?t=$t");
+    }
+
+    function remove($t, $u){
+        $conexao = Conexao::getInstance();
+        $conexao->query("delete from sala_has_usuario where sala_idsala = '$t' and usuario_idusuario = '$u';");
+        header("location:participantes.php?t=$t");
     }
 ?>

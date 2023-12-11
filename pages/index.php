@@ -10,7 +10,8 @@ if (!isset($_SESSION['username'])) {
     include "header.php";
     include "menu.php";
     include "../conf/Conexao.php";
-    
+    $e = isset($_GET["e"]) ? $_GET["e"] : "";
+    $t = isset($_GET["t"]) ? $_GET["t"] : "";
     if (!isset($_SESSION['username'])) {
         // Redirecionar para a página de login
         header('Location: login/login.php');
@@ -21,6 +22,31 @@ if (!isset($_SESSION['username'])) {
     <div class="container-fluid">
         <div class="row">
         <?php
+            if ($e == "true") {
+                if ($t == "form") {
+                    echo '
+                    <div id="alert" class="alert alert-success alert-dismissible" role="alert">
+                        <div><b><i class="bi bi-check-circle-fill"></i> Formulário Salvo com Sucesso! Para acessá-lo: entre em alguma turma e o atribua a alguma atividade.</b></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    ';
+                }else{
+                    echo '
+                    <div id="alert" class="alert alert-success alert-dismissible" role="alert">
+                        <div><b><i class="bi bi-check-circle-fill"></i> Entrou com Sucesso na Turma!</b></div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    ';
+                }
+                
+            }elseif ($e == "false") {
+                echo '
+                <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
+                    <div><b><i class="bi bi-x-circle-fill"></i> Erro ao Encotrar a Turma.</b></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                ';
+            }
             include "../assets/classes/sala.class.php";
             include "turma/turmas.php";
             //echo $_SESSION["userId"];

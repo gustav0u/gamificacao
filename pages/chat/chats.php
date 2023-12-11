@@ -1,6 +1,6 @@
 
 <?php
-    require_once "conexao.php";
+    require_once "../../conf/conexao.php";
     session_start();
     //var_dump($_SESSION);
     $user = $_SESSION["userId"];
@@ -15,13 +15,10 @@
             $mostruario["mensagem"] = substr($mostruario["mensagem"], 0, 15)."...";
             if ($linha["idchat"] == $chat) {
                 echo '
-                    <a class="card linkLimpo rounded-4" href="index.php?chat='.$linha["idchat"].'" style="background-color: #D781FF;">
+                    <a class="card rounded-4 text-dark" href="index.php?chat='.$linha["idchat"].'" style="text-decoration: none; background-color: #D781FF;">
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-3">
-                                    <img class="img rounded-circle" src="img/perfpadrao.jpg" alt="" width="90%">
-                                </div>
-                                <div class="col-9">
+                                <div class="col-12">
                                     <div class="row">
                                     <h5 class="card-title">'.$linha["titulo"].'</h5>
                                     <p class="card-text">'.$mostruario["nome"].': '.$mostruario["mensagem"].' &nbsp&nbsp&nbsp '.$mostruario["hora"].'</p>
@@ -33,13 +30,10 @@
                 ';
             }else{
                 echo '
-                    <a class="card linkLimpo rounded-4" href="index.php?chat='.$linha["idchat"].'" style="background-color: #D3C3DA">
+                    <a class="card rounded-4 text-dark" href="index.php?chat='.$linha["idchat"].'" style="text-decoration: none; background-color: #D3C3DA">
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-3">
-                                    <img class="img rounded-circle" src="img/perfpadrao.jpg" alt="" width="90%">
-                                </div>
-                                <div class="col-9">
+                                <div class="col-12">
                                     <div class="row">
                                     <h5 class="card-title">'.$linha["titulo"].'</h5>
                                     <p class="card-text">'.$mostruario["nome"].': '.$mostruario["mensagem"].' &nbsp&nbsp&nbsp '.$mostruario["hora"].'</p>

@@ -25,29 +25,63 @@
         $bg = "rgb($r, $g, $b)";
     }
     $count = 0;
+    $conn = Conexao::getInstance();
+    $sqlusuario = $conn->query("select * from usuario, sala_has_usuario where usuario.idusuario = sala_has_usuario.usuario_idusuario and sala_has_usuario.sala_idsala = $t and idusuario = '$u'");
+    $tipo_usuario = $sqlusuario->fetch(PDO::FETCH_ASSOC);
     $conexao = Conexao::getInstance();
     $sql = $conexao->query("select * from usuario, sala_has_usuario where usuario.idusuario = sala_has_usuario.usuario_idusuario and sala_has_usuario.sala_idsala = $t and sala_has_usuario.tipousu_idtipousu = $tipo order by idusuario desc");
-
-    while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
-        if($tipo == 1){
-            $botao = '<button type="button" class="btn btn-warning"><i class="bi bi-person-fill-down"></i></button>';
-        }else{
-            $botao = '<button type="button" class="btn btn-success"><i class="bi bi-person-fill-up"></i></button>';
+    if ($tipo_usuario["tipousu_idtipousu"] == 1) {
+        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+            if($tipo == 1){
+                $botao = '<a href="acao.php?acao=rmprf&turma='.$t.'&u='.$linha["idusuario"].'" class="btn btn-warning"><i class="bi bi-person-fill-down"></i></a>';
+            }else{
+                $botao = '<a href="acao.php?acao=addprf&turma='.$t.'&u='.$linha["idusuario"].'" class="btn btn-success"><i class="bi bi-person-fill-up"></i></a>';
+            }
+            if ($linha["idusuario"] == $u) {
+                echo '
+                <tr>
+                    <th scope="row">
+                        <div class="row">
+                            <div class="col-12">
+                                <img class="rounded-circle  " src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt=""  width="50px">
+                                &nbsp&nbsp '.$linha["nome"]."  @".$linha["usuario"].' (você)
+                            </div>  
+                        </div>
+                    </th>
+                </tr>
+                ';
+            }else{
+                echo '
+                <tr>
+                    <th scope="row">
+                        <div class="row">
+                            <div class="col-12">
+                                <img class="rounded-circle  " src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt=""  width="50px">
+                                &nbsp&nbsp '.$linha["nome"]."  @".$linha["usuario"].'
+                                <span class="float-end">
+                                    '.$botao.'
+                                    <a href="acao.php?acao=remove&turma='.$t.'&u='.$linha["idusuario"].'" class="btn btn-danger"><i class="bi bi-person-dash-fill"></i></a>
+                                </span>
+                            </div>  
+                        </div>
+                    </th>
+                </tr>
+                ';
+            }
         }
-        echo '
-        <tr>
-            <th scope="row">
-                <div class="row">
-                    <div class="col-12">
-                        <img class="rounded-circle  " src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt=""  width="50px">
-                        &nbsp&nbsp '.$linha["nome"]."  @".$linha["usuario"].'
-                        <span class="float-end">
-                            '.$botao.'
-                            <button type="button" class="btn btn-danger"><i class="bi bi-person-dash-fill"></i></button>
-                        </span>
-                    </div>  
-                </div>
-            </th>
-        </tr>
-        ';
+    }else{
+        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+            echo '
+            <tr>
+                <th scope="row">
+                    <div class="row">
+                        <div class="col-12">
+                            <img class="rounded-circle  " src="'.URL_BASE.'assets/imgusuarios/'.$linha["imguser"].'" alt=""  width="50px">
+                            &nbsp&nbsp '.$linha["nome"]."  @".$linha["usuario"].'
+                        </div>  
+                    </div>
+                </th>
+            </tr>
+            ';
+        }
     }

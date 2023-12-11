@@ -164,18 +164,18 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `mensagem`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mensagem` ;
+  DROP TABLE IF EXISTS `mensagem` ;
 
-SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `mensagem` (
-  `idmensagem` INT NOT NULL,
-  `chat_idchat` INT NOT NULL,
-  `usuario_idusuario` INT NOT NULL,
-  `mensagem` VARCHAR(5000) NULL,
-  PRIMARY KEY (`idmensagem`))
-ENGINE = InnoDB;
+  SHOW WARNINGS;
+  CREATE TABLE IF NOT EXISTS `mensagem` (
+    `idmensagem` INT NOT NULL auto_increment,
+    `chat_idchat` INT NOT NULL,
+    `usuario_idusuario` INT NOT NULL,
+    `mensagem` VARCHAR(5000) NULL,
+    PRIMARY KEY (`idmensagem`))
+  ENGINE = InnoDB;
 
-SHOW WARNINGS;
+  SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `pergunta`

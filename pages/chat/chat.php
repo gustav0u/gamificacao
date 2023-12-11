@@ -1,5 +1,5 @@
 <?php
-    require_once 'conexao.php';
+    require_once '../../conf/conexao.php';
     $conexao = Conexao::getInstance();
     session_start();
     $u = $_SESSION["username"];
@@ -7,11 +7,6 @@
     $n = "";
     $d = "";
     $h = -1;
-    $colors = array();
-    $color = json_decode(file_get_contents("colors.json"));
-    foreach ($color as $key => $value) {
-        $colors[$key] = $value;
-    }
     $consulta=$conexao->query("select usuario.nome, mensagem, dayname(dia) as semana, date_format(dia, get_format(date, 'EUR')) as 'data', date_format(hora, '%H:%i') as hora from usuario, chat_has_usuario, chat, mensagem where usuario.idusuario = chat_has_usuario.usuario_idusuario and chat_has_usuario.chat_idchat = chat.idchat and chat.idchat = mensagem.chat_idchat and mensagem.usuario_idusuario = usuario.idusuario and chat.idchat = $chat order by idmensagem;");  
     //var_dump($colors);
     while($linha=$consulta->fetch(PDO::FETCH_ASSOC)){

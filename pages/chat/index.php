@@ -1,46 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-    <?php 
-        session_start(); 
-        $chat = isset($_GET["chat"]) ? $_GET["chat"] : 1;
-    ?>
-    <title>Document</title>
-</head>
-<body>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="row w-100">
-                <div class="col-auto">
-                    <a class="navbar-brand" href="../index.php">
-                        <img src="img/loguin.png" alt="Logo" height="64" class="d-inline-block align-text-top">
-                        Study n' Play
-                    </a>
-                </div>
-
-                <div class="col d-flex justify-content-end align-items-center me-3"> <!-- Adiciona a classe me-3 para margem à direita -->
-                
-                    <form class="d-flex ms-3" action="consulta.php" method="GET"> <!-- Adiciona a classe ms-3 para margem à esquerda na barra de pesquisa -->
-                        <input class="form-control me-2" type="search" placeholder="Buscar usuários" aria-label="Search" name="q">
-                        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-                    
-                    <div class="ms-3"> <!-- Adiciona a classe ms-3 para margem à esquerda no ícone de usuário -->
-                        <a href="perfil.php" class="text-light"> <!-- Remova a classe me-2 para margem à direita -->
-                            <div><img src="img/userr.webp" alt="" width="40px"></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<?php 
+    
+    session_start();
+    include "../header.php";
+    include "../menu.php" ;
+    $cad = isset($_GET["cad"]) ? $_GET["cad"] : 0;
+?>
+<link rel="stylesheet" href="style.css">
     <div class="row">
         <div class="col-4 bg-dark" style="height: 100vh; overflow:scroll">
             <div class="container " >
@@ -63,14 +28,10 @@
                                     <button type="button" class="btn btn-dark" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                 </div>
                                 <div class="offcanvas-body">
-
                                     <div class="container">
                                         <div class="row">
                                             <div class="card border-light text-bg-dark col-12">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <img src="img/perfpadrao.jpg" alt="" width="100%">
-                                                    </h5>
                                                     <p class="card-text">
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-chat-left"></i></span>
@@ -88,9 +49,7 @@
                                             <div class="col-8">
                                                 <div class="input-group flex-nowrap">
                                                         <select name="" id="" class="form-select" aria-label="Default select example">
-                                                            <option value="1">Pessoa 1</option>
-                                                            <option value="2">Pessoa 2</option>
-                                                            <option value="3">Pessoa 3</option>
+                                                            <?php include "selectloader.php"; ?>
                                                         </select>
                                                         <button class="btn btn-outline-light" type="button"><i class="bi bi-person-fill-add"></i></button>
                                                 </div>
@@ -98,6 +57,8 @@
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-10">
+                                                <?php if ($cad) {
+                                                    echo '
                                                 <table class="table table-striped table-dark">
                                                     <thead>
                                                         <tr>
@@ -107,52 +68,16 @@
                                                         <th class="justify-content-center text-center" scope="col"><i class="bi bi-x-lg text-light"></i></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>@mdo</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>@fat</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>@twitter</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>@mdo</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>@fat</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>@twitter</td>
-                                                        <td class="justify-content-center text-center"><button class="btn btn-sm btn-danger rounded-pill" style="font-size: 70%" type="button"><i class="bi bi-dash-lg"></i></button></td>
-                                                        </tr>
+                                                    <tbody id="tabela">
+                                                        
                                                     </tbody>
-                                                </table>
+                                                </table>';
+                                                }
+                                                ?>
                                             </div>
                                             <div class="row justify-content-between text-between">
-                                                <div class="col-5">
-                                                    <button class="btn btn-danger "><i class="bi bi-trash"></i> Excluir</button>
-                                                </div>
                                                 <div class="col-4">
-                                                    <button class="btn btn-success "><i class="bi bi-check-lg"></i> Salvar</button>
+                                                    <a href="acao.php?acao=salvar" class="btn btn-success "><i class="bi bi-check-lg"></i> Salvar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,6 +143,19 @@
     </div>
     
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    function ajax(){
+        var req = new XMLHttpRequest(); req.onreadystatechange = function(){
+        if (req.readyState == 4 && req.status == 200) {
+            document.getElementById('table').innerHTML = req.responseText; }
+        }
+        var urlAtual = window.location.href;
+        var urlClass = new URL(urlAtual);
+        var cad = urlClass.searchParams.get("cad");
+        req.open('GET', 'tableloader.php?c='+cad, true); 
+        req.send();
+    }
+    ajax();
+</script>
 </body>
 </html>

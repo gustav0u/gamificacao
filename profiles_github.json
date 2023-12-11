@@ -1,0 +1,29 @@
+[
+    {
+        "id": 109625788,
+        "name": "Gustavo Preilipper",
+        "login": "gustav0u",
+        "public_repos": 12,
+        "bio": "Instituto Federal Catarinence - IFC\r\nCursando T\u00e9cnico em inform\u00e1tica para a internet\r\n17 anos\r\nBra\u00e7o do Trombudo - SC",
+        "avatar_url": "https://avatars.githubusercontent.com/u/109625788?v=4",
+        "url": "https://api.github.com/users/gustav0u"
+    },
+    {
+        "id": 102702133,
+        "name": null,
+        "login": "Gabrieldacunhab",
+        "public_repos": 2,
+        "bio": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/102702133?v=4",
+        "url": "https://api.github.com/users/Gabrieldacunhab"
+    },
+    {
+        "id": 115034925,
+        "name": null,
+        "login": "bogowww",
+        "public_repos": 9,
+        "bio": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/115034925?v=4",
+        "url": "https://api.github.com/users/bogowww"
+    }
+]
