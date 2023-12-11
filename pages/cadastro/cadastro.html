@@ -1,72 +1,71 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Study n'Play</title>
-        <link rel="stylesheet" href="../../assets/css/style.css">
-        <!-- Mantenha apenas os estilos necessários do Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <style>
-            body {
-                color: #000; /* Adicione esta linha para definir a cor do texto para preto */
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study n'Play</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- Mantenha apenas os estilos necessários do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            color: #000;
+        }
 
-            .purple-background {
-                background-color: rgba(177, 165, 193, 0.3);
-                padding: 15px;
-                border-radius: 10px;
-                margin-top: 4%;
-            }
+        .purple-background {
+            background-color: rgba(98, 41, 172, 0.3);
+            padding: 5px;
+            border-radius: 20px;
+            margin-top: 1%;
+        }
 
-            .btn-purple {
-                background-color: #8e8896;
-                color: #fff;
-            }
+        .btn-purple {
+            background-color: #6420bc;
+            color: #fff;
+        }
 
-            /* Adicione esta regra para deixar a borda mais grossa */
-            .form-control {
-                border-width: 2px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container mt-2">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header bg-purple">
-                            <h3 class="text-center">Cadastro</h3>
-                        </div>
-                        <div class="card-body glass-effect">
-                            <form action="cadastro.php" method="post">
-                                <div class="mb-2">
+        .form-control {
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body class="purple-background">
+    <div class="container "> <!-- Aumentei a margem para melhorar o espaçamento -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-purple text-dark"> <!-- Adicionei a classe text-white para melhorar a visibilidade do texto -->
+                        <h3 class="text-center">Cadastro</h3>
+                    </div>
+                    <div class="card-body"> <!-- Adicionei a classe purple-background -->
+                        <form action="cadastro.php" method="post">
+                            <div class="form-group">
                                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome:" required>
-                                </div>
-                                <div class="mb-2">
-                                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nome de usuário:" required>
-                                </div>
-                                <div class="mb-2">
-                                    <input type="date" class="form-control" id="dtNasc" name="dtNasc" placeholder="Data de nascimento:" required>
-                                </div>
-                                <div class="mb-2">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email:" required>
-                                </div>
-                                <div class="mb-2">
-                                    <input type="color" class="form-control" id="cor" name="cor">
-                                </div>
-                                <div class="mb-2">
-                                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha:" required>
-                                </div>
-                                <div class="mb-2">
-                                    <input type="password" class="form-control" id="Csenha" name="Csenha" placeholder="Confirmar senha:" required>
-                                </div>
-                                <button type="submit" class="btn btn-secondary w-100">Cadastrar</button>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nome de usuário:" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" class="form-control" id="dtNasc" name="dtNasc" placeholder="Data de nascimento:" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email:" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="color" class="form-control" id="cor" name="cor">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha:" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="Csenha" name="Csenha" placeholder="Confirmar senha:" required>
+                            </div>
+                            <button type="submit" class="btn btn-purple w-100">Cadastrar</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    </html>
+    </div>
+</body>
+</html>
